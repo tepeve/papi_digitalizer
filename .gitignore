@@ -23,4 +23,17 @@ ocr_qwen/
 
 # OS artifacts
 *.Zone.Identifier
+*:Zone.Identifier
 .DS_Store
+
+
+# Keep folder structure
+!.gitkeep
+
+# Data files (pero preservar estructura)
+data/*
+!data/.gitkeep
+!data/output/.gitkeep
+!data/processed/.gitkeep
+!data/quarintine/.gitkeep
+!data/raw/.gitkeep
