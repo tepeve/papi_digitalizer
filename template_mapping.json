@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "form_id": "SNEEP_2",
+    "reference_resolution": {
+      "width": 1700,
+      "height": 2200
+    },
+    "pages_count": 3
+  },
+  "fields": [
+    {
+      "field_id": "provincia",
+      "page": 1,
+      "type": "ICR",
+      "group": null,
+      "roi": [
+        357,
+        235,
+        1156,
+        27
+      ]
+    },
+    {
+      "field_id": "reparticion",
+      "page": 1,
+      "type": "ICR",
+      "group": null,
+      "roi": [
+        396,
+        286,
+        1115,
+        37
+      ]
+    },
+    {
+      "field_id": "nombre_establecimiento",
+      "page": 1,
+      "type": "ICR",
+      "group": null,
+      "roi": [
+        188,
+        391,
+        1315,
+        46
+      ]
+    },
+    {
+      "field_id": "tipo_establecimiento",
+      "page": 1,
+      "type": "ICR",
+      "group": null,
+      "roi": [
+        188,
+        513,
+        1310,
+        39
+      ]
+    },
+    {
+      "field_id": "domicilio_cp",
+      "page": 1,
+      "type": "ICR",
+      "group": null,
+      "roi": [
+        592,
+        574,
+        897,
+        42
+      ]
+    },
+    {
+      "field_id": "telefono_fax",
+      "page": 1,
+      "type": "ICR",
+      "group": null,
+      "roi": [
+        442,
+        626,
+        1039,
+        46
+      ]
+    },
+    {
+      "field_id": "correo_electronico",
+      "page": 1,
+      "type": "ICR",
+      "group": null,
+      "roi": [
+        535,
+        694,
+        948,
+        42
+      ]
+    },
+    {
+      "field_id": "masculino",
+      "page": 1,
+      "type": "ICR",
+      "group": "dotacion_oficiales",
+      "roi": [
+        614,
+        1137,
+        134,
+        46
+      ]
+    },
+    {
+      "field_id": "femenino",
+      "page": 1,
+      "type": "ICR",
+      "group": "dotacion_oficiales",
+      "roi": [
+        780,
+        1134,
+        142,
+        49
+      ]
+    },
+    {
+      "field_id": "totales",
+      "page": 1,
+      "type": "ICR",
+      "group": "dotacion_oficiales",
+      "roi": [
+        946,
+        1137,
+        134,
+        49
+      ]
+    }
+  ]
+}

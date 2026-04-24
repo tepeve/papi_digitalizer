@@ -1,9 +1,17 @@
-import json
-from typing import Optional
+"""LLM engine for batch ICR inference using ROI crops."""
 
+from __future__ import annotations
+
+import json
+import logging
+from typing import Any, Dict, List
+
+import cv2
 import ollama
 
-from .schemas import SneepPage1
+LOGGER = logging.getLogger(__name__)
+
+MODEL_NAME = "qwen2.5vl:7b"
 
 
 def _clean_json(raw_json: str) -> str:
@@ -11,49 +19,76 @@ def _clean_json(raw_json: str) -> str:
         return raw_json.split("```json")[1].split("```")[0].strip()
     if "```" in raw_json:
         return raw_json.split("```")[1].strip()
-    return raw_json
+    return raw_json.strip()
 
 
-def ejecutar_inferencia(ruta_full: str, md_struct: str) -> Optional[dict]:
-    # Generamos el esquema JSON a partir de tu clase Pydantic
-    esquema_json = json.dumps(SneepPage1.model_json_schema(), indent=2)
+def _encode_images(icr_records: List[Dict[str, Any]]) -> List[bytes]:
+    images = []
+    for record in icr_records:
+        image = record["image_array"]
+        image_bgr = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        success, buffer = cv2.imencode(".jpg", image_bgr)
+        if not success:
+            raise ValueError("Failed to encode ROI image")
+        images.append(buffer.tobytes())
+    return images
 
-    SYSTEM_PROMPT = f"""
-    Eres un experto en digitalizacion de formularios estadisticos penitenciarios (SNEEP). 
-    Analiza la imagen completa del formulario.
 
-    Estructura OCR de guia:
-    {str(md_struct)[:1000]}
+def _build_schema(field_ids: List[str]) -> Dict[str, Any]:
+    return {field_id: None for field_id in field_ids}
 
-    REGLAS ESTRICTAS:
-    1. Transcribe el texto manuscrito con exactitud. Si esta vacio o ilegible, usa null.
-    2. Para TODOS los campos numericos, si estan vacios o tienen una raya, DEBES devolver el numero 0. NUNCA devuelvas "".
-    3. Devuelve EXCLUSIVAMENTE un objeto JSON que respete las llaves de este esquema EXACTO:
-    {esquema_json}
+
+def process_icr_batch(icr_records: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Run a single LLM call for a batch of ICR crops.
+
+    Returns a dictionary mapping field_id to extracted string values (or null).
     """
+    if not icr_records:
+        return {}
 
-    print("5. Iniciando inferencia en Qwen2.5-VL (Imagen Unica)...")
+    field_ids = [record["field_id"] for record in icr_records]
+    images = _encode_images(icr_records)
+    schema = _build_schema(field_ids)
+    schema_json = json.dumps(schema, ensure_ascii=False, indent=2)
+
+    index_lines = [
+        f"Image {idx + 1} corresponds to '{field_id}'."
+        for idx, field_id in enumerate(field_ids)
+    ]
+    index_map = "\n".join(index_lines)
+
+    system_prompt = (
+        "You are a data entry clerk. Transcribe handwritten text from each image crop.\n"
+        f"I am providing you with {len(field_ids)} image crops.\n"
+        f"{index_map}\n"
+        "Return ONLY a JSON object with the provided keys.\n"
+        "If a crop is empty or illegible, use null.\n"
+        "Do not add extra keys or commentary.\n"
+        f"JSON schema:\n{schema_json}"
+    )
+
     response = ollama.chat(
-        model="qwen2.5vl:7b",
+        model=MODEL_NAME,
+        format="json",
         messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": system_prompt},
             {
                 "role": "user",
-                "content": "Procesa esta imagen y extrae los datos al JSON.",
-                "images": [ruta_full],
+                "content": "Transcribe each image crop into the corresponding JSON field.",
+                "images": images,
             },
         ],
     )
 
-    raw_json = response["message"]["content"]
-    raw_json = _clean_json(raw_json)
+    raw_json = response.get("message", {}).get("content", "")
+    if not raw_json:
+        LOGGER.error("Empty response from LLM")
+        return {}
 
-    print("6. Validando con Pydantic...")
+    cleaned_json = _clean_json(raw_json)
     try:
-        data_validada = SneepPage1.model_validate_json(raw_json)
-        print("✅ ¡Validacion Pydantic superada!")
-        return data_validada.model_dump()
-    except Exception as e:
-        print(f"❌ Error de validacion Pydantic:\n{e}")
-        print(f"\n--- JSON DEVUELTO POR LA IA ---\n{raw_json}")
-        return None
+        return json.loads(cleaned_json)
+    except json.JSONDecodeError as exc:
+        LOGGER.error("Invalid JSON from LLM: %s", exc)
+        LOGGER.debug("Raw LLM response: %s", raw_json)
+        return {}

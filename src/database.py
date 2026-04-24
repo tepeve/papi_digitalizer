@@ -5,7 +5,6 @@ from typing import Iterable, List, Optional
 import pandas as pd
 from sqlalchemy import create_engine
 
-
 def persist_results(records: Iterable[dict], output_dir: str = "data/output") -> Optional[pd.DataFrame]:
     records_list: List[dict] = list(records)
     if not records_list:
@@ -14,14 +13,13 @@ def persist_results(records: Iterable[dict], output_dir: str = "data/output") ->
 
     os.makedirs(output_dir, exist_ok=True)
     df = pd.DataFrame(records_list)
-    if "dotacion_personal" in df.columns:
-        df["dotacion_personal"] = df["dotacion_personal"].apply(
-            lambda value: json.dumps(value, ensure_ascii=False)
-        )
-    if "poblacion_por_jurisdiccion" in df.columns:
-        df["poblacion_por_jurisdiccion"] = df["poblacion_por_jurisdiccion"].apply(
-            lambda value: json.dumps(value, ensure_ascii=False)
-        )
+
+    # Detección y serialización automática de diccionarios/listas anidadas a JSON
+    for col in df.columns:
+        if df[col].apply(lambda x: isinstance(x, (dict, list))).any():
+            df[col] = df[col].apply(
+                lambda val: json.dumps(val, ensure_ascii=False) if isinstance(val, (dict, list)) else val
+            )
 
     db_path = os.path.join(output_dir, "sneep.db")
     csv_path = os.path.join(output_dir, "sneep_backup.csv")

@@ -26,7 +26,6 @@ ocr_qwen/
 *:Zone.Identifier
 .DS_Store
 
-
 # Keep folder structure
 !.gitkeep
 
