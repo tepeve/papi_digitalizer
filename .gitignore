@@ -1,0 +1,26 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Data / outputs
+data/
+temp/
+
+# Local envs / venvs
+ocr_qwen/
+.venv/
+.python-version
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS artifacts
+*.Zone.Identifier
+.DS_Store

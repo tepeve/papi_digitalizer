@@ -1,0 +1,31 @@
+[project]
+name = "papi-digitalizer-qwen"
+version = "0.1.0"
+description = "Pipeline de digitalización de encuestas PAPI usando Qwen2.5-VL y procesamiento local"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Tomás Pont Verges" }
+]
+dependencies = [
+    "ollama>=0.1.0",           # Cliente para hablar con el servidor de Qwen
+    "opencv-python>=4.8.0",    # Procesamiento de imágenes (limpieza, rotación)
+    "pymupdf4llm>=0.0.17",     # Extracción de estructura de PDFs a Markdown
+    "pandas>=2.1.0",           # Manejo de matrices y tablas
+    "sqlalchemy>=2.0.0",       # ORM para carga en RDBMS
+    "pydantic>=2.5.0",         # Validación de los JSON que devuelva la IA
+    "pillow>=10.0.0",          # Manipulación básica de imágenes
+    "pdf2image>=1.16.3",       # Conversión de PDF a imágenes para el modelo VL
+    "tqdm>=4.66.0",            # Barras de progreso para tus 20 núcleos
+    "python-dotenv>=1.0.0",    # Manejo de variables de entorno (credenciales DB)
+    "img2pdf",                 # Convierte imágenes a PDF manteniendo la integridad de los píxeles (sin re-compresión)
+]
+
+[tool.uv]
+[dependency-groups]
+dev = [
+    "ipykernel>=6.25.0",
+    "matplotlib>=3.8.0",
+    "pytest>=7.4.0",
+    "black>=26.3.1",
+]
