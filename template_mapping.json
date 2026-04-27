@@ -14,10 +14,10 @@
       "type": "ICR",
       "group": null,
       "roi": [
-        357,
-        235,
-        1156,
-        27
+        359,
+        210,
+        1117,
+        56
       ]
     },
     {
@@ -27,9 +27,9 @@
       "group": null,
       "roi": [
         396,
-        286,
-        1115,
-        37
+        271,
+        1090,
+        49
       ]
     },
     {
@@ -39,9 +39,9 @@
       "group": null,
       "roi": [
         188,
-        391,
-        1315,
-        46
+        389,
+        1318,
+        51
       ]
     },
     {
@@ -50,10 +50,10 @@
       "type": "ICR",
       "group": null,
       "roi": [
-        188,
-        513,
-        1310,
-        39
+        181,
+        508,
+        1320,
+        51
       ]
     },
     {
@@ -62,10 +62,10 @@
       "type": "ICR",
       "group": null,
       "roi": [
-        592,
-        574,
-        897,
-        42
+        596,
+        565,
+        907,
+        54
       ]
     },
     {
@@ -74,10 +74,10 @@
       "type": "ICR",
       "group": null,
       "roi": [
-        442,
+        433,
         626,
-        1039,
-        46
+        1071,
+        51
       ]
     },
     {
@@ -86,46 +86,178 @@
       "type": "ICR",
       "group": null,
       "roi": [
-        535,
-        694,
-        948,
-        42
+        526,
+        680,
+        978,
+        59
       ]
     },
     {
-      "field_id": "masculino",
+      "field_id": "responsable_estadistica",
       "page": 1,
       "type": "ICR",
-      "group": "dotacion_oficiales",
+      "group": null,
       "roi": [
-        614,
-        1137,
-        134,
-        46
+        1112,
+        743,
+        550,
+        54
       ]
     },
     {
-      "field_id": "femenino",
+      "field_id": "capacidad_fisica_alojamiento",
       "page": 1,
       "type": "ICR",
-      "group": "dotacion_oficiales",
+      "group": null,
       "roi": [
-        780,
-        1134,
-        142,
+        924,
+        804,
+        738,
         49
       ]
     },
     {
-      "field_id": "totales",
+      "field_id": "alojados_celdas_individuales",
       "page": 1,
       "type": "ICR",
-      "group": "dotacion_oficiales",
+      "group": null,
       "roi": [
-        946,
-        1137,
-        134,
+        1044,
+        865,
+        623,
         49
+      ]
+    },
+    {
+      "field_id": "alojados_locales_colectivos",
+      "page": 1,
+      "type": "ICR",
+      "group": null,
+      "roi": [
+        1022,
+        924,
+        640,
+        59
+      ]
+    },
+    {
+      "field_id": "cuadro_1_dotacion",
+      "page": 1,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        561,
+        1092,
+        579,
+        410
+      ]
+    },
+    {
+      "field_id": "c",
+      "page": 1,
+      "type": "ICR",
+      "group": "c",
+      "roi": [
+        604,
+        1303,
+        164,
+        49
+      ]
+    },
+    {
+      "field_id": "cuadro_8_suicidios",
+      "page": 3,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        569,
+        1050,
+        999,
+        127
+      ]
+    },
+    {
+      "field_id": "cuadro_poblacion",
+      "page": 1,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        551,
+        1720,
+        771,
+        479
+      ]
+    },
+    {
+      "field_id": "cuadro_ingresos",
+      "page": 2,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        720,
+        150,
+        630,
+        149
+      ]
+    },
+    {
+      "field_id": "cuadro_egresos",
+      "page": 2,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        50,
+        300,
+        1600,
+        500
+      ]
+    },
+    {
+      "field_id": "cuadro_ninos",
+      "page": 3,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        50,
+        850,
+        1600,
+        350
+      ]
+    },
+    {
+      "field_id": "cuadro_alteraciones",
+      "page": 3,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        50,
+        1250,
+        1600,
+        350
+      ]
+    },
+    {
+      "field_id": "cuadro_fallecidos",
+      "page": 3,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        50,
+        1200,
+        1600,
+        350
+      ]
+    },
+    {
+      "field_id": "cuadro_lesiones",
+      "page": 3,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        50,
+        1600,
+        1600,
+        350
       ]
     }
   ]

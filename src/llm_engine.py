@@ -4,14 +4,39 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Type
 
 import cv2
 import ollama
+from pydantic import BaseModel
+
+from .schemas import (
+    Cuadro1Dotacion,
+    Cuadro8Suicidios,
+    CuadroAlteraciones,
+    CuadroEgresos,
+    CuadroFallecidos,
+    CuadroIngresos,
+    CuadroLesiones,
+    CuadroNinos,
+    CuadroPoblacion,
+)
 
 LOGGER = logging.getLogger(__name__)
 
 MODEL_NAME = "qwen2.5vl:7b"
+
+TABLE_MODEL_REGISTRY: Dict[str, Type[BaseModel]] = {
+    "cuadro_1_dotacion": Cuadro1Dotacion,
+    "cuadro_8_suicidios": Cuadro8Suicidios,
+    "cuadro_poblacion": CuadroPoblacion,
+    "cuadro_ingresos": CuadroIngresos,
+    "cuadro_egresos": CuadroEgresos,
+    "cuadro_ninos": CuadroNinos,
+    "cuadro_alteraciones": CuadroAlteraciones,
+    "cuadro_fallecidos": CuadroFallecidos,
+    "cuadro_lesiones": CuadroLesiones,
+}
 
 
 def _clean_json(raw_json: str) -> str:
@@ -38,6 +63,11 @@ def _build_schema(field_ids: List[str]) -> Dict[str, Any]:
     return {field_id: None for field_id in field_ids}
 
 
+def _build_table_skeleton(model_cls: Type[BaseModel]) -> Dict[str, Any]:
+    instance = model_cls()
+    return instance.model_dump()
+
+
 def process_icr_batch(icr_records: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Run a single LLM call for a batch of ICR crops.
 
@@ -61,7 +91,7 @@ def process_icr_batch(icr_records: List[Dict[str, Any]]) -> Dict[str, Any]:
         "You are a data entry clerk. Transcribe handwritten text from each image crop.\n"
         f"I am providing you with {len(field_ids)} image crops.\n"
         f"{index_map}\n"
-        "Return ONLY a JSON object with the provided keys.\n"
+        "Return raw JSON only, no markdown or code blocks.\n"
         "If a crop is empty or illegible, use null.\n"
         "Do not add extra keys or commentary.\n"
         f"JSON schema:\n{schema_json}"
@@ -79,7 +109,6 @@ def process_icr_batch(icr_records: List[Dict[str, Any]]) -> Dict[str, Any]:
             },
         ],
     )
-
     raw_json = response.get("message", {}).get("content", "")
     if not raw_json:
         LOGGER.error("Empty response from LLM")
@@ -92,3 +121,65 @@ def process_icr_batch(icr_records: List[Dict[str, Any]]) -> Dict[str, Any]:
         LOGGER.error("Invalid JSON from LLM: %s", exc)
         LOGGER.debug("Raw LLM response: %s", raw_json)
         return {}
+
+
+def process_table_batch(table_records: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Run a single LLM call for a batch of TABLE_ICR crops."""
+    if not table_records:
+        return {}
+
+    results: Dict[str, Any] = {}
+
+    for record in table_records:
+        field_id = record["field_id"]
+        model_cls = TABLE_MODEL_REGISTRY.get(field_id)
+        if model_cls is None:
+            LOGGER.error("Missing TABLE_ICR model for field_id=%s", field_id)
+            continue
+
+        images = _encode_images([record])
+        template_json = json.dumps({field_id: _build_table_skeleton(model_cls)}, ensure_ascii=False, indent=2)
+
+        system_prompt = (
+            "You are a data entry clerk. Extract numeric values from the table image crop.\n"
+            "I am providing you with 1 table image.\n"
+            f"Image 1 corresponds to table '{field_id}'.\n"
+            "Return raw JSON only, no markdown or code blocks.\n"
+            "Do not remove or rename keys. Do not add extra keys or commentary.\n"
+            "If a cell is empty or unreadable, use 0. Use integers only.\n"
+            f"JSON template:\n{template_json}"
+        )
+
+
+        response = ollama.chat(
+            model=MODEL_NAME,
+            format="json",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {
+                    "role": "user",
+                    "content": "Fill the table JSON using the provided image.",
+                    "images": images,
+                },
+            ],
+        )
+
+        raw_json = response.get("message", {}).get("content", "")
+        if not raw_json:
+            LOGGER.error("Empty response from LLM")
+            continue
+
+        cleaned_json = _clean_json(raw_json)
+        try:
+            payload = json.loads(cleaned_json)
+        except json.JSONDecodeError as exc:
+            LOGGER.error("Invalid JSON from LLM: %s", exc)
+            LOGGER.debug("Raw LLM response: %s", raw_json)
+            continue
+
+        if field_id in payload:
+            results[field_id] = payload[field_id]
+        else:
+            results[field_id] = payload
+
+    return results

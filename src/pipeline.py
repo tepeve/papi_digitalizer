@@ -12,7 +12,7 @@ import numpy as np
 from pdf2image import convert_from_path
 
 from .image_utils import align_page_orb, extract_rois
-from .llm_engine import process_icr_batch
+from .llm_engine import process_icr_batch, process_table_batch
 from .schemas import SneepCompleto
 
 LOGGER = logging.getLogger(__name__)
@@ -102,6 +102,7 @@ def process_document(
 
             omr_records = [record for record in page_records if record["type"] == "OMR"]
             icr_records = [record for record in page_records if record["type"] == "ICR"]
+            table_records = [record for record in page_records if record["type"] == "TABLE_ICR"]
 
             all_extracted_fields.extend(omr_records)
 
@@ -109,6 +110,21 @@ def process_document(
             for record in icr_records:
                 field_id = record["field_id"]
                 value = icr_results.get(field_id)
+                all_extracted_fields.append(
+                    {
+                        "document_id": document_id,
+                        "page_number": page_number,
+                        "field_id": field_id,
+                        "group": record.get("group"),
+                        "type": record.get("type"),
+                        "value": value,
+                    }
+                )
+
+            table_results = process_table_batch(table_records)
+            for record in table_records:
+                field_id = record["field_id"]
+                value = table_results.get(field_id, {})
                 all_extracted_fields.append(
                     {
                         "document_id": document_id,

@@ -29,6 +29,10 @@ ocr_qwen/
 # Keep folder structure
 !.gitkeep
 
+#files de log
+repositorio_final.md
+debug_logs.txt
+
 # Data files (pero preservar estructura)
 data/*
 !data/.gitkeep

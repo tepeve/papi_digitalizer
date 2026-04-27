@@ -4,7 +4,7 @@ import os
 from src.batch_processor import process_batch
 
 INPUT_DIR = "data/raw"
-MASTER_PDF_PATH = "data/raw/master_template.pdf"
+MASTER_PDF_PATH = "data/template/master_template.pdf"
 TEMPLATE_JSON = "template_mapping.json"
 
 

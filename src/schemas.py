@@ -1,59 +1,161 @@
+import unicodedata
 from typing import Optional
-from pydantic import BaseModel, Field
+
+from pydantic import BaseModel, Field, field_validator
 
 # ==========================================
 # 1. CLASES REUTILIZABLES (Filas de Tablas)
 # ==========================================
 
 class GeneroTotalRow(BaseModel):
-    """Fila estándar para conteos divididos por sexo."""
-    masculino: Optional[int] = 0
-    femenino: Optional[int] = 0
-    total: Optional[int] = 0
+    """Fila estandar para conteos divididos por sexo."""
+    masculino: int = 0
+    femenino: int = 0
+    total: int = 0
 
-class JurisdiccionRow(BaseModel):
-    """Fila para Cuadros 2, 4 y 5 (Dividido por Prov/Nac/Fed y Sexo)."""
-    provincial_masc: Optional[int] = 0
-    provincial_fem: Optional[int] = 0
-    nacional_masc: Optional[int] = 0
-    nacional_fem: Optional[int] = 0
-    federal_masc: Optional[int] = 0
-    federal_fem: Optional[int] = 0
-    total: Optional[int] = 0
+
+class JurisdiccionSexo(BaseModel):
+    """Contenedor por jurisdiccion y sexo."""
+    provincial: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    nacional: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    federal: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    total: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+
+
+class SituacionLegalSexo(BaseModel):
+    """Contenedor por situacion legal y sexo."""
+    procesados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    condenados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    inimputables: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    contraventores: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    otros: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    total: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+
 
 class NinosRow(BaseModel):
-    """Fila para Cuadro 6 (Niños con sus madres)."""
-    ninas: Optional[int] = 0
-    ninos: Optional[int] = 0
-    total: Optional[int] = 0
+    """Fila para Cuadro 6 (Ninos con sus madres)."""
+    ninas: int = 0
+    ninos: int = 0
+    total: int = 0
+
 
 class AlteracionRow(BaseModel):
     """Fila para Cuadro 7 (Alteraciones del orden)."""
-    danos: Optional[int] = 0
-    rehenes: Optional[int] = 0
-    heridos_muertos: Optional[int] = 0
-    total: Optional[int] = 0
+    danos: int = 0
+    rehenes: int = 0
+    heridos_muertos: int = 0
+    total: int = 0
 
-class SituacionLegalRow(BaseModel):
-    """Fila para Cuadro 9 (Fallecidos divididos por situación legal y sexo)."""
-    procesados_masc: Optional[int] = 0
-    procesados_fem: Optional[int] = 0
-    condenados_masc: Optional[int] = 0
-    condenados_fem: Optional[int] = 0
-    inimputables_masc: Optional[int] = 0
-    inimputables_fem: Optional[int] = 0
-    contraventores_masc: Optional[int] = 0
-    contraventores_fem: Optional[int] = 0
-    otros_masc: Optional[int] = 0
-    otros_fem: Optional[int] = 0
-    total: Optional[int] = 0
+
+class EgresosProcesados(BaseModel):
+    """Motivos de egreso para procesados."""
+    absolucion: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+    cambio_situacion: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+    total: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+
+
+class EgresosCondenados(BaseModel):
+    """Motivos de egreso para condenados."""
+    agotamiento: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+    evasion: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+    total: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+
+
+def normalize_text(value: Optional[str]) -> Optional[str]:
+    if value is None:
+        return None
+    if not isinstance(value, str):
+        value = str(value)
+
+    normalized = unicodedata.normalize("NFKD", value)
+    normalized = "".join(char for char in normalized if not unicodedata.combining(char))
+    normalized = " ".join(normalized.split())
+    if not normalized:
+        return normalized
+    return normalized.upper()
+
+
+class Cuadro1Dotacion(BaseModel):
+    """Cuadro 1: dotacion de personal (tabla completa)."""
+    dotacion_oficiales: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    dotacion_suboficiales: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    dotacion_cadetes: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    dotacion_personal_civil: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    dotacion_otros: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    dotacion_total: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+
+
+class Cuadro8Suicidios(BaseModel):
+    """Cuadro 8: suicidios (tabla completa)."""
+    suicidios_procesados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    suicidios_condenados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    suicidios_inimputables: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    suicidios_contraventores: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    suicidios_otros: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    suicidios_total: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+
+
+class CuadroPoblacion(BaseModel):
+    """Cuadro 2: poblacion privada de libertad (tabla completa)."""
+    procesados: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+    condenados: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+    inimputables: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+    contraventores: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+    otros: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+    total: JurisdiccionSexo = Field(default_factory=JurisdiccionSexo)
+
+
+class CuadroIngresos(BaseModel):
+    """Cuadro 3: ingresos del ultimo ano (tabla completa)."""
+    ingresos_ultimo_ano: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+
+
+class CuadroEgresos(BaseModel):
+    """Cuadros 4 y 5: egresos procesados y condenados (tabla completa)."""
+    procesados: EgresosProcesados = Field(default_factory=EgresosProcesados)
+    condenados: EgresosCondenados = Field(default_factory=EgresosCondenados)
+
+
+class CuadroNinos(BaseModel):
+    """Cuadro 6: ninos alojados con sus madres (tabla completa)."""
+    ninos_hasta_1: NinosRow = Field(default_factory=NinosRow)
+    ninos_1_a_2: NinosRow = Field(default_factory=NinosRow)
+    ninos_2_a_3: NinosRow = Field(default_factory=NinosRow)
+    ninos_3_a_4: NinosRow = Field(default_factory=NinosRow)
+    ninos_total: NinosRow = Field(default_factory=NinosRow)
+
+
+class CuadroAlteraciones(BaseModel):
+    """Cuadro 7: alteraciones del orden (tabla completa)."""
+    alteraciones_fuerza: AlteracionRow = Field(default_factory=AlteracionRow)
+    alteraciones_negociacion: AlteracionRow = Field(default_factory=AlteracionRow)
+    alteraciones_espontanea: AlteracionRow = Field(default_factory=AlteracionRow)
+    alteraciones_total: AlteracionRow = Field(default_factory=AlteracionRow)
+
+
+class CuadroFallecidos(BaseModel):
+    """Cuadro 9: fallecidos excl. suicidios (tabla completa)."""
+    fallecidos_violencia_internos: SituacionLegalSexo = Field(default_factory=SituacionLegalSexo)
+    fallecidos_violencia_agentes: SituacionLegalSexo = Field(default_factory=SituacionLegalSexo)
+    fallecidos_otras_causas: SituacionLegalSexo = Field(default_factory=SituacionLegalSexo)
+    fallecidos_total: SituacionLegalSexo = Field(default_factory=SituacionLegalSexo)
+
+
+class CuadroLesiones(BaseModel):
+    """Cuadro 10: lesiones en alteraciones del orden (tabla completa)."""
+    lesiones_agentes_lesionados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    lesiones_agentes_fallecidos: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    lesiones_internos_lesionados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    lesiones_internos_fallecidos: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    lesiones_total: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
 
 # ==========================================
 # 2. ESQUEMA PRINCIPAL (El Formulario Completo)
 # ==========================================
 
 class SneepCompleto(BaseModel):
-    # --- DATOS GENERALES (group: null) ---
+    """Esquema completo del formulario SNEEP."""
+    # --- DATOS GENERALES ---
     provincia: Optional[str] = None
     reparticion: Optional[str] = None
     nombre_establecimiento: Optional[str] = None
@@ -62,95 +164,49 @@ class SneepCompleto(BaseModel):
     telefono_fax: Optional[str] = None
     correo_electronico: Optional[str] = None
     responsable_estadistica: Optional[str] = None
-    capacidad_fisica_alojamiento: Optional[int] = 0
-    alojados_celdas_individuales: Optional[int] = 0
-    alojados_locales_colectivos: Optional[int] = 0
 
-    # --- CUADRO 1: Dotación de Personal (group: dotacion_X) ---
-    dotacion_oficiales: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    dotacion_suboficiales: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    dotacion_cadetes: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    dotacion_personal_civil: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    dotacion_otros: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    dotacion_total: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    capacidad_fisica_alojamiento: int = 0
+    alojados_celdas_individuales: int = 0
+    alojados_locales_colectivos: int = 0
 
-    # --- CUADRO 2: Población Privada de Libertad (group: poblacion_X) ---
-    poblacion_procesados: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
-    poblacion_condenados: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
-    poblacion_inimputables: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
-    poblacion_contraventores: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
-    poblacion_otros: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
-    poblacion_total: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
+    @field_validator(
+        "provincia",
+        "reparticion",
+        "nombre_establecimiento",
+        "tipo_establecimiento",
+        "domicilio_cp",
+        "telefono_fax",
+        "correo_electronico",
+        "responsable_estadistica",
+        mode="before",
+    )
+    @classmethod
+    def _normalize_text_fields(cls, value: Optional[str]) -> Optional[str]:
+        return normalize_text(value)
 
-    # --- CUADRO 3 (o 4): Ingresos (group: ingresos_ultimo_ano) ---
-    ingresos_ultimo_ano: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    # --- CUADRO 1: Dotacion de Personal ---
+    cuadro_1_dotacion: Cuadro1Dotacion = Field(default_factory=Cuadro1Dotacion)
 
-    # --- CUADRO 4: Egresos Procesados (group: egresos_proc_X) ---
-    egresos_proc_absolucion: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
-    egresos_proc_cambio_situacion: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
-    # ... (Puedes agregar los demás motivos de egreso siguiendo este patrón)
-    egresos_proc_total: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
+    # --- CUADRO 2: Poblacion Privada de Libertad ---
+    cuadro_poblacion: CuadroPoblacion = Field(default_factory=CuadroPoblacion)
 
-    # --- CUADRO 5: Egresos Condenados (group: egresos_cond_X) ---
-    egresos_cond_agotamiento: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
-    egresos_cond_evasion: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
-    # ... (Puedes agregar los demás motivos de egreso siguiendo este patrón)
-    egresos_cond_total: JurisdiccionRow = Field(default_factory=JurisdiccionRow)
+    # --- CUADRO 3: Ingresos ---
+    cuadro_ingresos: CuadroIngresos = Field(default_factory=CuadroIngresos)
 
-    # --- CUADRO 6: Niños Alojados (group: ninos_X) ---
-    ninos_hasta_1: NinosRow = Field(default_factory=NinosRow)
-    ninos_1_a_2: NinosRow = Field(default_factory=NinosRow)
-    ninos_2_a_3: NinosRow = Field(default_factory=NinosRow)
-    ninos_3_a_4: NinosRow = Field(default_factory=NinosRow)
-    ninos_total: NinosRow = Field(default_factory=NinosRow)
+    # --- CUADRO 4-5: Egresos ---
+    cuadro_egresos: CuadroEgresos = Field(default_factory=CuadroEgresos)
 
-    # --- CUADRO 7: Alteraciones del Orden (group: alteraciones_X) ---
-    alteraciones_fuerza: AlteracionRow = Field(default_factory=AlteracionRow)
-    alteraciones_negociacion: AlteracionRow = Field(default_factory=AlteracionRow)
-    alteraciones_espontanea: AlteracionRow = Field(default_factory=AlteracionRow)
-    alteraciones_total: AlteracionRow = Field(default_factory=AlteracionRow)
+    # --- CUADRO 6: Ninos ---
+    cuadro_ninos: CuadroNinos = Field(default_factory=CuadroNinos)
 
-    # --- CUADRO 8: Suicidios (group: suicidios_X) ---
-    suicidios_procesados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    suicidios_condenados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    suicidios_inimputables: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    suicidios_contraventores: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    suicidios_otros: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    suicidios_total: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    # --- CUADRO 7: Alteraciones ---
+    cuadro_alteraciones: CuadroAlteraciones = Field(default_factory=CuadroAlteraciones)
 
-    # --- CUADRO 9: Fallecidos excl. suicidios (group: fallecidos_X) ---
-    fallecidos_violencia_internos: SituacionLegalRow = Field(default_factory=SituacionLegalRow)
-    fallecidos_violencia_agentes: SituacionLegalRow = Field(default_factory=SituacionLegalRow)
-    fallecidos_otras_causas: SituacionLegalRow = Field(default_factory=SituacionLegalRow)
-    fallecidos_total: SituacionLegalRow = Field(default_factory=SituacionLegalRow)
+    # --- CUADRO 8: Suicidios ---
+    cuadro_8_suicidios: Cuadro8Suicidios = Field(default_factory=Cuadro8Suicidios)
 
-    # --- CUADRO 10: Lesiones / Fallecimientos en alteraciones (group: lesiones_X) ---
-    lesiones_agentes_lesionados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    lesiones_agentes_fallecidos: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    lesiones_internos_lesionados: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    lesiones_internos_fallecidos: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
-    lesiones_total: GeneroTotalRow = Field(default_factory=GeneroTotalRow)
+    # --- CUADRO 9: Fallecidos ---
+    cuadro_fallecidos: CuadroFallecidos = Field(default_factory=CuadroFallecidos)
 
-
-## Guía Rápida para el Etiquetado en roi_labeler
-# Cuando de ejecuta roi_labeler y se abre 
-# la herramienta visual, guíate por estos tres ejemplos 
-# para que el mapeo calce perfecto con el nuevo esquema:
-
-# Para el campo Provincia:
-# field_id: provincia
-# group: [ENTER] (dejar en blanco para que sea null)
-
-# Para la celda "Femenino" de los Oficiales (Cuadro 1):
-# field_id: femenino (¡solo el nombre de la columna!)
-# group: dotacion_oficiales
-
-# Para la celda "Provincial Masc." de Procesados (Cuadro 2):
-# field_id: provincial_masc
-# group: poblacion_procesados
-
-# Este esquema es increíblemente robusto. 
-# Como usamos Optional[int] = 0, si Qwen no logra leer un número o devuelve 
-# un string vacío, Pydantic lo inicializará en 0 por defecto, 
-# garantizando que tu base de datos reciba exactamente los tipos de datos 
-# que necesita sin que se rompa el pipeline. 
+    # --- CUADRO 10: Lesiones ---
+    cuadro_lesiones: CuadroLesiones = Field(default_factory=CuadroLesiones)

@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 from pdf2image import convert_from_path
 
-MASTER_PDF_PATH = "data/raw/master_template.pdf"
+MASTER_PDF_PATH = "data/template/master_template.pdf"
 OUTPUT_JSON_PATH = "template_mapping.json"
 
 DEFAULT_TYPE = "ICR"
@@ -37,8 +37,8 @@ def _prompt_field_metadata(page_number: int) -> Dict[str, Any]:
         raise ValueError("field_id is required")
 
     field_type = input(f"type (default {DEFAULT_TYPE}): ").strip().upper() or DEFAULT_TYPE
-    if field_type not in {"ICR", "OMR"}:
-        raise ValueError("type must be ICR or OMR")
+    if field_type not in {"ICR", "OMR", "TABLE_ICR"}:
+        raise ValueError("type must be ICR, OMR, or TABLE_ICR")
 
     group = input("group (optional, blank for null): ").strip()
     if group == "":
