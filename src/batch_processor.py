@@ -3,6 +3,10 @@ import os
 import shutil
 import traceback
 from typing import Dict, List, Optional
+from .telemetry import profile_time
+import logging
+
+LOGGER = logging.getLogger(__name__)
 
 from tqdm import tqdm
 
@@ -51,6 +55,7 @@ def _quarantine_file(pdf_path: str, error_text: str, payload: Optional[Dict[str,
             json.dump(payload, handle, ensure_ascii=False, indent=2)
 
 
+@profile_time
 def process_batch(
     input_dir: str,
     master_pdf_path: str,

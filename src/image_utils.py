@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 import os
 from typing import Any, Dict, List, Tuple
+from .telemetry import profile_time
 
 import cv2
 import numpy as np
@@ -32,7 +33,7 @@ def _compute_keypoints(gray: np.ndarray) -> Tuple[list, np.ndarray]:
     keypoints, descriptors = orb.detectAndCompute(gray, None)
     return keypoints, descriptors
 
-
+@profile_time
 def align_page_orb(
     scanned_img: np.ndarray,
     master_img: np.ndarray,
@@ -126,7 +127,7 @@ def evaluate_omr(roi_img: np.ndarray, threshold_ratio: float = 0.15) -> int:
     ratio = white_pixels / total_pixels if total_pixels else 0.0
     return 1 if ratio > threshold_ratio else 0
 
-
+@profile_time
 def extract_rois(
     aligned_page: np.ndarray,
     page_fields: List[Dict[str, Any]],

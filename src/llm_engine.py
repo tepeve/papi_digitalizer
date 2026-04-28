@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import logging
 from typing import Any, Dict, List, Type
+from .telemetry import profile_time
+
 
 import cv2
 import ollama
@@ -67,7 +69,7 @@ def _build_table_skeleton(model_cls: Type[BaseModel]) -> Dict[str, Any]:
     instance = model_cls()
     return instance.model_dump()
 
-
+@profile_time
 def process_icr_batch(icr_records: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Run a single LLM call for a batch of ICR crops.
 
@@ -123,6 +125,7 @@ def process_icr_batch(icr_records: List[Dict[str, Any]]) -> Dict[str, Any]:
         return {}
 
 
+@profile_time
 def process_table_batch(table_records: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Run a single LLM call for a batch of TABLE_ICR crops."""
     if not table_records:
@@ -174,6 +177,11 @@ def process_table_batch(table_records: List[Dict[str, Any]]) -> Dict[str, Any]:
             payload = json.loads(cleaned_json)
         except json.JSONDecodeError as exc:
             LOGGER.error("Invalid JSON from LLM: %s", exc)
+            LOGGER.debug("Raw LLM response: %s", raw_json)
+            continue
+
+        if not isinstance(payload, dict):
+            LOGGER.error("Invalid JSON payload type from LLM: %s", type(payload))
             LOGGER.debug("Raw LLM response: %s", raw_json)
             continue
 

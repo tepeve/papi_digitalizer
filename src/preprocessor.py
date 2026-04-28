@@ -5,7 +5,12 @@ from typing import Optional
 
 from PIL import Image
 
+from .telemetry import profile_time
+import logging
 
+LOGGER = logging.getLogger(__name__)
+
+@profile_time
 def limpiar_y_enderezar(ruta_imagen: str, output_dir: str) -> Optional[str]:
     print("1. Preparando imagen y ejecutando OCRmyPDF...")
     os.makedirs(output_dir, exist_ok=True)

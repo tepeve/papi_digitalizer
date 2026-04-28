@@ -7,10 +7,22 @@ INPUT_DIR = "data/raw"
 MASTER_PDF_PATH = "data/template/master_template.pdf"
 TEMPLATE_JSON = "template_mapping.json"
 
+import logging
+
+
 
 def _print_error(message: str) -> None:
     print(f"Error: {message}")
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler("data/processed/pipeline_telemetry.log")
+    ]
+)
+LOGGER = logging.getLogger(__name__)
 
 def main() -> None:
     if not os.path.exists(TEMPLATE_JSON):

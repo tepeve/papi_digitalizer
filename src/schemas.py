@@ -154,6 +154,7 @@ class CuadroLesiones(BaseModel):
 # ==========================================
 
 class SneepCompleto(BaseModel):
+    document_id: str
     """Esquema completo del formulario SNEEP."""
     # --- DATOS GENERALES ---
     provincia: Optional[str] = None

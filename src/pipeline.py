@@ -6,6 +6,7 @@ import hashlib
 import logging
 import os
 from typing import Any, Dict, List, Optional
+from .telemetry import profile_time
 
 import cv2
 import numpy as np
@@ -41,6 +42,9 @@ def aggregate_results(extracted_fields: List[Dict[str, Any]]) -> Dict[str, Any]:
         group = field.get("group")
         value = field.get("value")
 
+        if value is None:
+            continue
+
         if group is None:
             output[field_id] = value
         else:
@@ -50,7 +54,7 @@ def aggregate_results(extracted_fields: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     return output
 
-
+@profile_time
 def process_document(
     pdf_path: str,
     master_pages: List[np.ndarray],
@@ -140,6 +144,7 @@ def process_document(
             continue
 
     aggregated = aggregate_results(all_extracted_fields)
+    aggregated["document_id"] = document_id
 
     try:
         validated = SneepCompleto.model_validate(aggregated)
