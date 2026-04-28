@@ -30,8 +30,11 @@ ocr_qwen/
 !.gitkeep
 
 #files de log
+pack_repo.py
 repositorio_final.md
-debug_logs.txt
+debug_log.txt
+project_old.md
+
 
 # Data files (pero preservar estructura)
 data/*

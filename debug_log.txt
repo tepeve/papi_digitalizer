@@ -1,3 +1,0 @@
-Procesando:   0%|          | 0/2 [00:00<?, ?pdf/s]Procesando:  50%|█████     | 1/2 [10:03<10:03, 603.16s/pdf]Procesando: 100%|██████████| 2/2 [19:57<00:00, 598.05s/pdf]Procesando: 100%|██████████| 2/2 [19:57<00:00, 598.82s/pdf]
-✅ Persistencia OK: 2 registros -> data/output/sneep.db + data/output/sneep_backup.csv
-Total processed: 2 | Successes: 2 | Quarantines: 0
