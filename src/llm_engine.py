@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from typing import Any, Dict, List, Type
 from .telemetry import profile_time
 
 
 import cv2
 import ollama
+from ollama import Client 
 from pydantic import BaseModel
 
 from .schemas import (
@@ -27,6 +29,9 @@ from .schemas import (
 LOGGER = logging.getLogger(__name__)
 
 MODEL_NAME = "qwen2.5vl:7b"
+
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+llm_client = Client(host=OLLAMA_HOST)
 
 TABLE_MODEL_REGISTRY: Dict[str, Type[BaseModel]] = {
     "cuadro_1_dotacion": Cuadro1Dotacion,
@@ -99,7 +104,7 @@ def process_icr_batch(icr_records: List[Dict[str, Any]]) -> Dict[str, Any]:
         f"JSON schema:\n{schema_json}"
     )
 
-    response = ollama.chat(
+    response = llm_client.chat(
         model=MODEL_NAME,
         format="json",
         messages=[
@@ -154,7 +159,7 @@ def process_table_batch(table_records: List[Dict[str, Any]]) -> Dict[str, Any]:
         )
 
 
-        response = ollama.chat(
+        response = llm_client.chat(
             model=MODEL_NAME,
             format="json",
             messages=[

@@ -1,0 +1,12 @@
+services:
+  papi-digitalizer:
+    build: .
+    container_name: papi_app
+    volumes:
+      - .:/app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      - DEBUG_MODE=1
+    network_mode: "host"
