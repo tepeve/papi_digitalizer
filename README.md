@@ -69,12 +69,25 @@ Activar modo debug para guardar overlays y recortes intermedios:
 DEBUG_MODE=1 python main.py
 ```
 
+## Docker (con soporte CUDA)
+
+La imagen base es `nvidia/cuda:12.2.0-base-ubuntu22.04`. Para construir y levantar el contenedor:
+
+```bash
+docker compose up --build
+```
+
+El servicio monta el directorio actual en `/app` y se conecta al servidor Ollama del host vía `OLLAMA_HOST=http://host.docker.internal:11434`.
+
 ## Variables de entorno
 
 | Variable | Valores | Descripción |
 |---|---|---|
 | `DEBUG_MODE` | `1` / `0` | Guarda imágenes de debug en `data/processed/<sha256>/` |
+| `OLLAMA_HOST` | URL | Endpoint del servidor Ollama (default: `http://host.docker.internal:11434`) |
 
 ## Notas
+- `document_id` (SHA-256 del PDF) está incluido en el modelo `SneepCompleto` y en todos los registros de salida (SQLite/CSV).
+- `src/telemetry.py` expone el decorador `@profile_time` para medir tiempos de ejecución de funciones críticas.
 - `pymupdf4llm` está declarado como dependencia pero no se usa en el pipeline actual.
 - El LLM nunca escribe directamente en la base de datos; Pydantic es la barrera de validación.

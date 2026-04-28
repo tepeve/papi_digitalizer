@@ -113,6 +113,9 @@ python tools/roi_labeler.py
 - [x] **Pipeline multipágina:** procesamiento de PDFs completos con validación Pydantic (OMR + ICR + TABLE_ICR por página).
 - [x] **Batch secuencial de PDFs:** cuarentena + resumen.
 - [x] **Persistencia ETL:** exporta a SQLite/CSV con serialización automática de campos anidados.
+- [x] **`document_id` en el modelo de datos:** campo `document_id` (SHA-256 del archivo) incorporado en `SneepCompleto` y propagado a través de todo el pipeline (ROIs, aggregation, persistencia).
+- [x] **Observabilidad (telemetría):** módulo `src/telemetry.py` con decorador `@profile_time` para medir y loguear el tiempo de ejecución de funciones críticas.
+- [x] **Contenerización:** `Dockerfile` con imagen base CUDA (`nvidia/cuda:12.2.0-base-ubuntu22.04`) para soporte GPU + `docker-compose.yml` con volúmenes, display X11 y variable `OLLAMA_HOST` apuntando al host.
 
 ---
 
@@ -128,8 +131,7 @@ python tools/roi_labeler.py
 5. ~~**Evaluar tablas anidadas en una sola pasada:**~~ ✅ Implementado con `TABLE_ICR` + `process_table_batch`.
 6. **Pipeline para formularios con multiples registros por hoja:**
    - Diseñar un flujo adaptado para SNEEP 1 u otros formularios con mas de una unidad de registro por papel.
-7. **Contenerización:**
-   - Definir Dockerfile/compose y dependencias de sistema para despliegue reproducible.
+7. ~~**Contenerización:**~~ - Dockerfile con imagen CUDA + docker-compose con volúmenes y OLLAMA_HOST. ✅
 8. **Interfaz de usuario:**
    - Diseñar una UI minima para carga, seguimiento y revision.
 
