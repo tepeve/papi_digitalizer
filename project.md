@@ -31,6 +31,27 @@ papi-digitalizer-qwen/
 
 ---
 
+## 📦 Librerías y Dependencias
+
+### Entorno de Desarrollo
+* Gestor de paquetes y entornos virtuales: **`uv`** (extremadamente rápido, reemplazo de pip/conda).
+
+### Python Stack
+* **`ollama`:** Cliente de conexión con el servidor local del modelo multimodal.
+* **`opencv-python`:** Alineamiento ORB, extracción de ROIs y OMR.
+* **`pdf2image` & `Pillow`:** Conversión de PDF a imágenes y normalización de entradas.
+* **`pydantic`:** Esquemas y validación estricta de datos.
+* **`pandas` + `sqlalchemy`:** Persistencia a SQLite/CSV.
+* **`tqdm`:** Barra de progreso en batch.
+* **`img2pdf`:** Utilidad de conversión sin recomprimir (uso auxiliar).
+* **`pymupdf4llm`:** Dependencia declarada (no usada en el pipeline actual).
+
+### Dependencias de Sistema (WSL/Ubuntu)
+* `ocrmypdf`, `tesseract-ocr-spa`, `ghostscript`, `unpaper` (Limpieza de imagen).
+* `poppler-utils` (Motor detrás de pdf2image).
+
+---
+
 ## 🏗️ Workflow y Arquitectura del Pipeline
 
 El flujo de trabajo actual consta de 6 etapas fundamentales:
@@ -67,31 +88,13 @@ El flujo de trabajo actual consta de 6 etapas fundamentales:
 ```bash
 python tools/roi_labeler.py
 ```
+*Importante:* La UI en Ubuntu-WSL suele tener conflictos con los drivers de video de windows, por lo que una estrategia más simple es correr roi_labeler.py directamente en windows (es un script standalone).
 
 3. Usar los controles del visor:
    - `n` pagina siguiente, `p` pagina anterior, `u` deshacer ultimo ROI, `q` salir y guardar.
 4. Para cada ROI, completar `field_id`, `type` (ICR/OMR/TABLE_ICR) y `group` (vacío para null).
 5. Al salir, se genera `template_mapping.json` en la raiz del repo.
 6. Verificar que `metadata.pages_count` y `reference_resolution` coincidan con la plantilla.
-
-## 📦 Librerías y Dependencias
-
-### Entorno de Desarrollo
-* Gestor de paquetes y entornos virtuales: **`uv`** (extremadamente rápido, reemplazo de pip/conda).
-
-### Python Stack
-* **`ollama`:** Cliente de conexión con el servidor local del modelo multimodal.
-* **`opencv-python`:** Alineamiento ORB, extracción de ROIs y OMR.
-* **`pdf2image` & `Pillow`:** Conversión de PDF a imágenes y normalización de entradas.
-* **`pydantic`:** Esquemas y validación estricta de datos.
-* **`pandas` + `sqlalchemy`:** Persistencia a SQLite/CSV.
-* **`tqdm`:** Barra de progreso en batch.
-* **`img2pdf`:** Utilidad de conversión sin recomprimir (uso auxiliar).
-* **`pymupdf4llm`:** Dependencia declarada (no usada en el pipeline actual).
-
-### Dependencias de Sistema (WSL/Ubuntu)
-* `ocrmypdf`, `tesseract-ocr-spa`, `ghostscript`, `unpaper` (Limpieza de imagen).
-* `poppler-utils` (Motor detrás de pdf2image).
 
 ---
 
@@ -119,10 +122,9 @@ python tools/roi_labeler.py
    - Chequeos cruzados matemáticos y generación de alertas/flags.
 2. **Identificador de pieza procesada:**
    - Agregar nombre de archivo u otro identificador como columna en CSV y SQLite.
-3. **Multipagina (formularios extendidos):**
-   - Agrupar campos de varias paginas en un unico JSON y registros de salida por entrevista.
-4. **Optimización de inferencia:**
-   - Evaluar lectura selectiva de campos con escritura/marcas.
+3. ~~**Multipagina (formularios extendidos):**~~
+   - Agrupar campos de varias paginas en un unico JSON y registros de salida por entrevista. ✅ Implementado a través de roi_labeler.py
+4. ~~**Optimización de inferencia:**~~ - Evaluar lectura selectiva de campos con escritura/marcas.✅ Implementado a través del pipeline bifurcado que separa el método de interpretación a través de `field_id`, `type` (ICR/OMR/TABLE_ICR)
 5. ~~**Evaluar tablas anidadas en una sola pasada:**~~ ✅ Implementado con `TABLE_ICR` + `process_table_batch`.
 6. **Pipeline para formularios con multiples registros por hoja:**
    - Diseñar un flujo adaptado para SNEEP 1 u otros formularios con mas de una unidad de registro por papel.
