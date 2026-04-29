@@ -10,3 +10,4 @@ services:
       - OLLAMA_HOST=http://host.docker.internal:11434
       - DEBUG_MODE=1
     network_mode: "host"
+    command: tail -f /dev/null

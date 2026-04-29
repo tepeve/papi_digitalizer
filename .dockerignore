@@ -1,0 +1,13 @@
+.venv
+ocr_qwen
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.uv
+data/output/*.db
+data/output/*.csv
+data/processed/*
+data/quarantine/*
+data/temp/*

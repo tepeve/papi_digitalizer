@@ -32,6 +32,7 @@ ocr_qwen/
 #files de log
 pack_repo.py
 repositorio_final.md
+repositorio_exportado.md
 debug_log.txt
 project_old.md
 
@@ -41,5 +42,6 @@ data/*
 !data/.gitkeep
 !data/output/.gitkeep
 !data/processed/.gitkeep
-!data/quarintine/.gitkeep
+!data/quarantine/.gitkeep
+!data/template/.gitkeep
 !data/raw/.gitkeep

@@ -141,39 +141,15 @@
       ]
     },
     {
-      "field_id": "cuadro_1_dotacion",
+      "field_id": "cuadro_dotacion",
       "page": 1,
       "type": "TABLE_ICR",
       "group": null,
       "roi": [
-        561,
-        1092,
-        579,
-        410
-      ]
-    },
-    {
-      "field_id": "c",
-      "page": 1,
-      "type": "ICR",
-      "group": "c",
-      "roi": [
-        604,
-        1303,
-        164,
-        49
-      ]
-    },
-    {
-      "field_id": "cuadro_8_suicidios",
-      "page": 3,
-      "type": "TABLE_ICR",
-      "group": null,
-      "roi": [
-        569,
-        1050,
-        999,
-        127
+        303,
+        1054,
+        838,
+        440
       ]
     },
     {
@@ -182,10 +158,10 @@
       "type": "TABLE_ICR",
       "group": null,
       "roi": [
-        551,
-        1720,
-        771,
-        479
+        303,
+        1623,
+        978,
+        552
       ]
     },
     {
@@ -194,22 +170,34 @@
       "type": "TABLE_ICR",
       "group": null,
       "roi": [
-        720,
-        150,
-        630,
-        149
+        374,
+        130,
+        958,
+        152
       ]
     },
     {
-      "field_id": "cuadro_egresos",
+      "field_id": "cuadro_egresos_procesados",
       "page": 2,
       "type": "TABLE_ICR",
       "group": null,
       "roi": [
-        50,
-        300,
-        1600,
-        500
+        379,
+        325,
+        1146,
+        846
+      ]
+    },
+    {
+      "field_id": "cuadro_egresos_condenados",
+      "page": 2,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        379,
+        1217,
+        1142,
+        843
       ]
     },
     {
@@ -218,10 +206,10 @@
       "type": "TABLE_ICR",
       "group": null,
       "roi": [
-        50,
-        850,
-        1600,
-        350
+        279,
+        95,
+        1144,
+        354
       ]
     },
     {
@@ -230,10 +218,22 @@
       "type": "TABLE_ICR",
       "group": null,
       "roi": [
-        50,
-        1250,
-        1600,
-        350
+        313,
+        469,
+        1085,
+        442
+      ]
+    },
+    {
+      "field_id": "cuadro_suicidios",
+      "page": 3,
+      "type": "TABLE_ICR",
+      "group": null,
+      "roi": [
+        164,
+        990,
+        1403,
+        169
       ]
     },
     {
@@ -242,10 +242,10 @@
       "type": "TABLE_ICR",
       "group": null,
       "roi": [
-        50,
-        1200,
-        1600,
-        350
+        154,
+        1188,
+        1401,
+        484
       ]
     },
     {
@@ -254,10 +254,10 @@
       "type": "TABLE_ICR",
       "group": null,
       "roi": [
-        50,
-        1600,
-        1600,
-        350
+        323,
+        1772,
+        912,
+        406
       ]
     }
   ]

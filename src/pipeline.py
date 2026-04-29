@@ -42,7 +42,7 @@ def aggregate_results(extracted_fields: List[Dict[str, Any]]) -> Dict[str, Any]:
         group = field.get("group")
         value = field.get("value")
 
-        if value is None:
+        if value is None or (isinstance(value, str) and value.strip() == ""):
             continue
 
         if group is None:
@@ -53,6 +53,7 @@ def aggregate_results(extracted_fields: List[Dict[str, Any]]) -> Dict[str, Any]:
             output[group][field_id] = value
 
     return output
+
 
 @profile_time
 def process_document(

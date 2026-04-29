@@ -20,10 +20,6 @@ DISPLAY_MAX_HEIGHT = 900
 
 def _load_pdf_pages(pdf_path: str) -> List[Any]:
     pages = convert_from_path(pdf_path)
-    # Note: If poppler is not in the system PATH, specify the path to the poppler binaries:
-    # pages = convert_from_path(pdf_path, poppler_path=r"poppler\Library\bin")
-    # if you have to running on Windows and installed poppler, you may need to adjust the poppler_path above to point to the correct location of the poppler binaries on your system. and the run:
-    # uv run --with opencv-python --with pdf2image roi_labeler.py
     page_arrays = []
     for page in pages:
         page_array = np.array(page)
@@ -67,19 +63,17 @@ def _init_output(metadata: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def main() -> None:
-    if not os.path.exists(MASTER_PDF_PATH):
-        raise FileNotFoundError(f"Master PDF not found: {MASTER_PDF_PATH}")
+def _print_table(fields: List[Dict[str, Any]]) -> None:
+    print(f"\n{'-'*95}")
+    print(f"{'FIELD_ID':<30} | {'PAGE':<4} | {'TYPE':<10} | {'GROUP':<15} | {'ROI'}")
+    print(f"{'-'*95}")
+    for f in fields:
+        grp = str(f.get("group")) if f.get("group") is not None else "null"
+        print(f"{f['field_id']:<30} | {f['page']:<4} | {f['type']:<10} | {grp:<15} | {f['roi']}")
+    print(f"{'-'*95}\n")
 
-    pages = _load_pdf_pages(MASTER_PDF_PATH)
-    if not pages:
-        raise RuntimeError("No pages found in the master PDF")
 
-    reference_resolution = {
-        "width": int(pages[0].shape[1]),
-        "height": int(pages[0].shape[0]),
-    }
-
+def run_new_mode(pages: List[Any], reference_resolution: Dict[str, int]) -> None:
     metadata = {
         "form_id": "SNEEP_2",
         "reference_resolution": reference_resolution,
@@ -90,12 +84,12 @@ def main() -> None:
     fields_by_page: Dict[int, List[Dict[str, Any]]] = {i + 1: [] for i in range(len(pages))}
 
     page_index = 0
-    window_name = "SNEEP Labeler"
+    window_name = "SNEEP Labeler - Modo NEW"
 
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
     cv2.resizeWindow(window_name, 800, 900)
 
-    print("Controls: n=next page, p=prev page, u=undo last ROI, q=quit/save")
+    print("\nControles: n=siguiente, p=anterior, u=deshacer último ROI, q=guardar y salir")
 
     while True:
         page_number = page_index + 1
@@ -125,21 +119,21 @@ def main() -> None:
             if fields_by_page[page_number]:
                 removed = fields_by_page[page_number].pop()
                 output["fields"].remove(removed)
-                print(f"Removed ROI for field_id={removed['field_id']} on page {page_number}")
+                print(f"Deshecho ROI para field_id={removed['field_id']} en la página {page_number}")
             else:
-                print("No ROIs to undo on this page")
+                print("No hay ROIs para deshacer en esta página")
             continue
 
         roi = cv2.selectROI(window_name, display_img, fromCenter=False, showCrosshair=True)
         x, y, w, h = [int(v) for v in roi]
         if w == 0 or h == 0:
-            print("Skipped empty ROI")
+            print("ROI vacío omitido")
             continue
 
         try:
             field = _prompt_field_metadata(page_number)
         except ValueError as exc:
-            print(f"Invalid metadata: {exc}")
+            print(f"Metadatos inválidos: {exc}")
             continue
 
         inv_scale = 1.0 / scale_factor
@@ -151,14 +145,152 @@ def main() -> None:
         field["roi"] = [true_x, true_y, true_w, true_h]
         fields_by_page[page_number].append(field)
         output["fields"].append(field)
-        print(f"Added ROI for field_id={field['field_id']} on page {page_number}")
+        print(f"ROI añadido para field_id={field['field_id']} en la página {page_number}")
 
     cv2.destroyAllWindows()
 
     with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as handle:
         json.dump(output, handle, indent=2, ensure_ascii=False)
 
-    print(f"Saved template mapping to {OUTPUT_JSON_PATH}")
+    print(f"Template mapping guardado en {OUTPUT_JSON_PATH}")
+
+
+def run_edit_mode(pages: List[Any]) -> None:
+    if not os.path.exists(OUTPUT_JSON_PATH):
+        print(f"Error: No se encontró el archivo '{OUTPUT_JSON_PATH}'. Debe usar el modo NEW primero.")
+        return
+
+    with open(OUTPUT_JSON_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    fields = data.get("fields", [])
+
+    while True:
+        print("\n--- ESTADO ACTUAL DEL TEMPLATE MAPPING ---")
+        _print_table(fields)
+        
+        field_id = input("Ingrese el 'field_id' que desea editar (o 'q' para guardar y salir): ").strip()
+        
+        if field_id.lower() == 'q':
+            break
+
+        target_field = next((f for f in fields if f["field_id"] == field_id), None)
+        if not target_field:
+            create_new = input(f"❌ El campo '{field_id}' no existe. ¿Desea agregarlo como un nuevo campo? (Y/N): ").strip().lower()
+            if create_new == 'y':
+                while True:
+                    try:
+                        page_number = int(input(f"Ingrese el número de página (1 a {len(pages)}): "))
+                        if 1 <= page_number <= len(pages):
+                            break
+                        print("Número de página fuera de rango.")
+                    except ValueError:
+                        print("Por favor, ingrese un número entero válido.")
+                
+                target_field = {
+                    "field_id": field_id,
+                    "page": page_number,
+                    "type": DEFAULT_TYPE,
+                    "group": None,
+                    "roi": [0, 0, 0, 0]
+                }
+                fields.append(target_field)
+            else:
+                continue
+
+        page_number = target_field["page"]
+        page_index = page_number - 1
+        page_image = pages[page_index]
+
+        window_name = f"Editando ROI: {field_id} (Pagina {page_number})"
+        cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+        cv2.resizeWindow(window_name, 800, 900)
+
+        page_fields = [f for f in fields if f["page"] == page_number and f["field_id"] != field_id]
+        annotated_full = _draw_rois(page_image, page_fields)
+
+        scale_factor = min(1.0, DISPLAY_MAX_HEIGHT / page_image.shape[0])
+        if scale_factor < 1.0:
+            new_width = int(page_image.shape[1] * scale_factor)
+            new_height = int(page_image.shape[0] * scale_factor)
+            display_img = cv2.resize(annotated_full, (new_width, new_height), interpolation=cv2.INTER_AREA)
+        else:
+            display_img = annotated_full
+
+        print(f"\n[UI] Dibuje el nuevo ROI para '{field_id}' en la ventana emergente y presione ENTER o ESPACIO.")
+        roi = cv2.selectROI(window_name, display_img, fromCenter=False, showCrosshair=True)
+        cv2.destroyWindow(window_name)
+
+        x, y, w, h = [int(v) for v in roi]
+        if w == 0 or h == 0:
+            print("⚠️  ROI vacío. Operación cancelada. Se conservan las coordenadas anteriores.")
+        else:
+            inv_scale = 1.0 / scale_factor
+            target_field["roi"] = [
+                int(round(x * inv_scale)),
+                int(round(y * inv_scale)),
+                int(round(w * inv_scale)),
+                int(round(h * inv_scale))
+            ]
+
+        current_type = target_field.get("type", DEFAULT_TYPE)
+        current_group = target_field.get("group", "")
+        if current_group is None:
+            current_group = "null"
+
+        new_type = input(f"Nuevo 'type' (actual: {current_type} | Enter para mantener): ").strip().upper()
+        if new_type:
+            if new_type in {"ICR", "OMR", "TABLE_ICR"}:
+                target_field["type"] = new_type
+            else:
+                print("Tipo inválido. Se mantiene el valor anterior.")
+
+        new_group = input(f"Nuevo 'group' (actual: {current_group} | Enter para mantener, 'null' para borrar): ").strip()
+        if new_group:
+            if new_group.lower() == "null":
+                target_field["group"] = None
+            else:
+                target_field["group"] = new_group
+
+        print(f"\n✅ Campo '{field_id}' actualizado correctamente.")
+
+    with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as handle:
+        json.dump(data, handle, indent=2, ensure_ascii=False)
+    
+    print(f"\n💾 Cambios guardados exitosamente en {OUTPUT_JSON_PATH}")
+
+
+def main() -> None:
+    if not os.path.exists(MASTER_PDF_PATH):
+        raise FileNotFoundError(f"Master PDF not found: {MASTER_PDF_PATH}")
+
+    print("Cargando páginas del PDF maestro (esto puede demorar unos segundos)...")
+    pages = _load_pdf_pages(MASTER_PDF_PATH)
+    if not pages:
+        raise RuntimeError("No pages found in the master PDF")
+
+    reference_resolution = {
+        "width": int(pages[0].shape[1]),
+        "height": int(pages[0].shape[0]),
+    }
+
+    print("\n" + "="*40)
+    print("      SNEEP 2 - ROI Labeler")
+    print("="*40)
+    print("1. Modo NEW  (Crear template desde cero)")
+    print("2. Modo EDIT (Modificar campos específicos)")
+    print("="*40)
+
+    while True:
+        choice = input("Seleccione el modo de operación (1 o 2): ").strip()
+        if choice in {"1", "2"}:
+            break
+        print("Opción inválida. Ingrese 1 o 2.")
+
+    if choice == "1":
+        run_new_mode(pages, reference_resolution)
+    elif choice == "2":
+        run_edit_mode(pages)
 
 
 if __name__ == "__main__":

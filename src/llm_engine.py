@@ -15,15 +15,16 @@ from ollama import Client
 from pydantic import BaseModel
 
 from .schemas import (
-    Cuadro1Dotacion,
-    Cuadro8Suicidios,
-    CuadroAlteraciones,
-    CuadroEgresos,
-    CuadroFallecidos,
-    CuadroIngresos,
-    CuadroLesiones,
-    CuadroNinos,
+    CuadroDotacion,
     CuadroPoblacion,
+    CuadroIngresos,
+    CuadroEgresosProcesados,
+    CuadroEgresosCondenados,
+    CuadroNinos,
+    CuadroAlteraciones,
+    CuadroSuicidios,
+    CuadroFallecidos,
+    CuadroLesiones,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -34,13 +35,14 @@ OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 llm_client = Client(host=OLLAMA_HOST)
 
 TABLE_MODEL_REGISTRY: Dict[str, Type[BaseModel]] = {
-    "cuadro_1_dotacion": Cuadro1Dotacion,
-    "cuadro_8_suicidios": Cuadro8Suicidios,
+    "cuadro_dotacion": CuadroDotacion,
     "cuadro_poblacion": CuadroPoblacion,
     "cuadro_ingresos": CuadroIngresos,
-    "cuadro_egresos": CuadroEgresos,
+    "cuadro_egresos_procesados": CuadroEgresosProcesados,
+    "cuadro_egresos_condenados": CuadroEgresosCondenados,
     "cuadro_ninos": CuadroNinos,
     "cuadro_alteraciones": CuadroAlteraciones,
+    "cuadro_suicidios": CuadroSuicidios,
     "cuadro_fallecidos": CuadroFallecidos,
     "cuadro_lesiones": CuadroLesiones,
 }
