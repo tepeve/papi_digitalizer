@@ -1,13 +1,32 @@
 services:
+  # Servicio LLM independiente con acceso a GPU
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama_server
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama  # Volumen para persistir los pesos del modelo
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # Tu aplicación batch
   papi-digitalizer:
     build: .
     container_name: papi_app
+    depends_on:
+      - ollama
     volumes:
-      - .:/app
-      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./data:/app/data  # Solo mapeamos los datos, el código ya está dentro de la imagen
     environment:
-      - DISPLAY=${DISPLAY:-:0}
-      - OLLAMA_HOST=http://host.docker.internal:11434
-      - DEBUG_MODE=1
-    network_mode: "host"
-    command: tail -f /dev/null
+      - OLLAMA_HOST=http://ollama:11434
+      - DEBUG_MODE=0
+    # Quitamos 'command: tail...' para que ejecute el main.py de tu Dockerfile y se apague al terminar.
+
+volumes:
+  ollama_data:
