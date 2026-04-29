@@ -6,7 +6,6 @@ __pycache__
 *.pyd
 .pytest_cache
 .uv
-data/output/*.db
 data/output/*.csv
 data/processed/*
 data/quarantine/*

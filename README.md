@@ -42,7 +42,7 @@ data/
 ├── template/   # master_template.pdf (plantilla maestra)
 ├── processed/  # Artefactos de debug por documento (<sha256>/)
 ├── quarantine/ # PDFs con errores + *_error.txt + *_data.json
-└── output/     # sneep.db (SQLite) + sneep_backup.csv
+└── output/     # sneep_backup.csv
 ```
 
 ## Uso rápido
@@ -61,7 +61,7 @@ python tools/roi_labeler.py
 python main.py
 ```
 
-Los resultados válidos se persisten en `data/output/sneep.db` y `data/output/sneep_backup.csv`. Los documentos con errores se mueven a `data/quarantine/`.
+Los resultados válidos se persisten en `data/output/sneep_backup.csv`. La versión de la aplicación para correr en instancias virtuales prescinde del feature que persiste datos en una base SQLite `data/output/sneep.db`. Los documentos con errores se mueven a `data/quarantine/`.
 
 Activar modo debug para guardar overlays y recortes intermedios:
 
@@ -87,7 +87,7 @@ El servicio monta el directorio actual en `/app` y se conecta al servidor Ollama
 | `OLLAMA_HOST` | URL | Endpoint del servidor Ollama (default: `http://host.docker.internal:11434`) |
 
 ## Notas
-- `document_id` (SHA-256 del PDF) está incluido en el modelo `SneepCompleto` y en todos los registros de salida (SQLite/CSV).
+- `document_id` (SHA-256 del PDF) está incluido en el modelo 
 - `src/telemetry.py` expone el decorador `@profile_time` para medir tiempos de ejecución de funciones críticas.
 - `pymupdf4llm` está declarado como dependencia pero no se usa en el pipeline actual.
 - El LLM nunca escribe directamente en la base de datos; Pydantic es la barrera de validación.
