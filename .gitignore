@@ -45,3 +45,15 @@ data/*
 !data/quarantine/.gitkeep
 !data/template/.gitkeep
 !data/raw/.gitkeep
+
+
+# Archivos de la nube y RunPod
+resultados_batch.zip
+*.zip
+ollama.log
+
+# Datos extraídos
+data/output/*.csv
+data/quarantine/*.json
+data/quarantine/*.txt
+data/quarantine/*.pdf
