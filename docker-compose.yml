@@ -1,12 +1,11 @@
 services:
-  # Servicio LLM independiente con acceso a GPU
   ollama:
     image: ollama/ollama:latest
     container_name: ollama_server
     ports:
       - "11434:11434"
     volumes:
-      - ollama_data:/root/.ollama  # Volumen para persistir los pesos del modelo
+      - ollama_data:/root/.ollama
     deploy:
       resources:
         reservations:
@@ -14,19 +13,23 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    # NUEVO: Healthcheck para validar que la API responde
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
-  # Tu aplicación batch
   papi-digitalizer:
     build: .
     container_name: papi_app
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy # NUEVO: Espera al healthcheck
     volumes:
-      - ./data:/app/data  # Solo mapeamos los datos, el código ya está dentro de la imagen
+      - ./data:/app/data
     environment:
       - OLLAMA_HOST=http://ollama:11434
-      - DEBUG_MODE=0
-    # Quitamos 'command: tail...' para que ejecute el main.py de tu Dockerfile y se apague al terminar.
-
-volumes:
-  ollama_data:
+      - DEBUG_MODE=1 # Sugerido para la primera prueba
+      - CLEAN_SCANS=0  # Cambiar a 1 en producción si los PDFs vienen muy ruidosos

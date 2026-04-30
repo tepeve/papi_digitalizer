@@ -12,7 +12,6 @@ dependencies = [
     "opencv-python>=4.8.0",    # Procesamiento de imágenes (limpieza, rotación)
     "pymupdf4llm>=0.0.17",     # Extracción de estructura de PDFs a Markdown
     "pandas>=2.1.0",           # Manejo de matrices y tablas
-    "sqlalchemy>=2.0.0",       # ORM para carga en RDBMS
     "pydantic>=2.5.0",         # Validación de los JSON que devuelva la IA
     "pillow>=10.0.0",          # Manipulación básica de imágenes
     "pdf2image>=1.16.3",       # Conversión de PDF a imágenes para el modelo VL

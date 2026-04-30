@@ -4,7 +4,7 @@ FROM nvidia/cuda:12.2.0-base-ubuntu22.04
 # Evitar prompts interactivos durante la instalación
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Instalación de dependencias de sistema: OCR, PDF y GUI
+# Instalación de dependencias de sistema: OCR y PDF (Sin GUI)
 RUN apt-get update && apt-get install -y \
     python3.11 \
     python3-pip \
@@ -15,10 +15,6 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     libgl1-mesa-glx \
     libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender1 \
-    libqt5gui5 \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalación de 'uv'

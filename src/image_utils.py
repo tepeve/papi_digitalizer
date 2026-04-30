@@ -70,7 +70,6 @@ def align_page_orb(
     matches = list(matches)
     matches.sort(key=lambda match: match.distance)
     
-    matches.sort(key=lambda match: match.distance)
     keep_ratio = min(max(good_match_percent, 0.01), 1.0)
     keep_count = max(4, int(len(matches) * keep_ratio))
     matches = matches[:keep_count]
