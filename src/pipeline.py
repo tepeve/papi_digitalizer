@@ -60,11 +60,14 @@ def process_document(
     pdf_path: str,
     master_pages: List[np.ndarray],
     template_mapping: Dict[str, Any],
+    forced_id: Optional[str] = None, # <-- 1. Agregar el parámetro
 ) -> Optional[Dict[str, Any]]:
     if not os.path.exists(pdf_path):
         raise FileNotFoundError(f"Input PDF not found: {pdf_path}")
 
-    document_id = _sha256_file(pdf_path)
+    # <-- 2. Usar el hash original si viene forzado, sino calcularlo
+    document_id = forced_id if forced_id else _sha256_file(pdf_path)
+    
     debug_mode = os.getenv("DEBUG_MODE", "").strip().lower() in {"1", "true", "yes"}
     debug_dir = os.path.join("data", "processed", document_id)
 
@@ -100,6 +103,7 @@ def process_document(
                 debug_prefix=f"page_{page_number}_",
             )
 
+            # Usamos el document_id (forzado o calculado) para los ROIs
             page_records = extract_rois(aligned_page, page_fields, document_id, page_number)
             if not page_records:
                 LOGGER.warning("No ROIs extracted for page %d", page_number)
