@@ -14,7 +14,9 @@ services:
       start_period: 10s
 
   papi-digitalizer:
-    build: .
+    build: 
+      context: .
+      network: host
     container_name: papi_app
     depends_on:
       ollama:

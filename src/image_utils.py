@@ -162,6 +162,7 @@ def extract_rois(
                     "field_id": field["field_id"],
                     "group": field.get("group"),
                     "type": field_type,
+                    "target_mappings": field.get("target_mappings"),
                     "value": value,
                 }
             )
@@ -173,6 +174,7 @@ def extract_rois(
                     "field_id": field["field_id"],
                     "group": field.get("group"),
                     "type": field_type,
+                    "target_mappings": field.get("target_mappings"),
                     "image_array": crop,
                 }
             )

@@ -14,18 +14,20 @@ import ollama
 from ollama import Client 
 from pydantic import BaseModel
 
-from .schemas import (
-    CuadroDotacion,
-    CuadroPoblacion,
-    CuadroIngresos,
-    CuadroEgresosProcesados,
-    CuadroEgresosCondenados,
-    CuadroNinos,
-    CuadroAlteraciones,
-    CuadroSuicidios,
-    CuadroFallecidos,
-    CuadroLesiones,
-)
+from .schemas import DiagnosticoIntegral
+
+# (
+#     CuadroDotacion,
+#     CuadroPoblacion,
+#     CuadroIngresos,
+#     CuadroEgresosProcesados,
+#     CuadroEgresosCondenados,
+#     CuadroNinos,
+#     CuadroAlteraciones,
+#     CuadroSuicidios,
+#     CuadroFallecidos,
+#     CuadroLesiones,
+# )
 
 LOGGER = logging.getLogger(__name__)
 
@@ -34,18 +36,18 @@ MODEL_NAME = "qwen2.5vl:7b"
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 llm_client = Client(host=OLLAMA_HOST)
 
-TABLE_MODEL_REGISTRY: Dict[str, Type[BaseModel]] = {
-    "cuadro_dotacion": CuadroDotacion,
-    "cuadro_poblacion": CuadroPoblacion,
-    "cuadro_ingresos": CuadroIngresos,
-    "cuadro_egresos_procesados": CuadroEgresosProcesados,
-    "cuadro_egresos_condenados": CuadroEgresosCondenados,
-    "cuadro_ninos": CuadroNinos,
-    "cuadro_alteraciones": CuadroAlteraciones,
-    "cuadro_suicidios": CuadroSuicidios,
-    "cuadro_fallecidos": CuadroFallecidos,
-    "cuadro_lesiones": CuadroLesiones,
-}
+# TABLE_MODEL_REGISTRY: Dict[str, Type[BaseModel]] = {
+#     "cuadro_dotacion": CuadroDotacion,
+#     "cuadro_poblacion": CuadroPoblacion,
+#     "cuadro_ingresos": CuadroIngresos,
+#     "cuadro_egresos_procesados": CuadroEgresosProcesados,
+#     "cuadro_egresos_condenados": CuadroEgresosCondenados,
+#     "cuadro_ninos": CuadroNinos,
+#     "cuadro_alteraciones": CuadroAlteraciones,
+#     "cuadro_suicidios": CuadroSuicidios,
+#     "cuadro_fallecidos": CuadroFallecidos,
+#     "cuadro_lesiones": CuadroLesiones,
+# }
 
 
 def _clean_json(raw_json: str) -> str:
@@ -90,11 +92,41 @@ def process_icr_batch(icr_records: List[Dict[str, Any]]) -> Dict[str, Any]:
     schema = _build_schema(field_ids)
     schema_json = json.dumps(schema, ensure_ascii=False, indent=2)
 
-    index_lines = [
-        f"Image {idx + 1} corresponds to '{field_id}'."
-        for idx, field_id in enumerate(field_ids)
-    ]
+# muteamos estas lineas para pasar la estrategía ICR al LLM
+    # index_lines = [
+    #     f"Image {idx + 1} corresponds to '{field_id}'."
+    #     for idx, field_id in enumerate(field_ids)
+    # ]
+    # index_map = "\n".join(index_lines)
+
+# agregamos este nuevo bloque:
+# Desde aquí
+    index_lines = []
+    for idx, record in enumerate(icr_records):
+        field_id = record["field_id"]
+        # Asumimos 'text' por defecto para mantener retrocompatibilidad con scripts anteriores
+        field_type = record.get("type", "text") 
+        
+        if field_type == "multiple_choice_block":
+            instruction = (
+                f"Image {idx + 1} corresponds to '{field_id}'. This is a multiple-choice block with checkboxes. "
+                "Analyze the region, identify ALL text choices selected or marked with crosses (X), ticks, or filled marks, "
+                "and return ONLY the exact text labels of the marked options separated by commas. "
+                "If no option is marked, return 'Ninguna'."
+            )
+        elif field_type == "single_choice_block":
+            instruction = (
+                f"Image {idx + 1} corresponds to '{field_id}'. This is a single-choice question. "
+                "Identify the single option marked with a cross or tick, and return ONLY its exact text label. "
+                "If no option is marked, return 'Ninguna'."
+            )
+        else:
+            instruction = f"Image {idx + 1} corresponds to '{field_id}'. Transcribe the handwritten or printed text exactly."
+            
+        index_lines.append(instruction)
+        
     index_map = "\n".join(index_lines)
+# hasta aquí
 
     system_prompt = (
         "You are a data entry clerk. Transcribe handwritten text from each image crop.\n"

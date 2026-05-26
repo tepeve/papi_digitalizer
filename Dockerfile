@@ -4,23 +4,28 @@ FROM nvidia/cuda:12.2.0-base-ubuntu22.04
 # Evitar prompts interactivos durante la instalación
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Instalación de dependencias de sistema: OCR, PDF y GUI
-RUN apt-get update && apt-get install -y \
-    python3.11 \
-    python3-pip \
-    ocrmypdf \
-    tesseract-ocr-spa \
-    ghostscript \
-    unpaper \
-    poppler-utils \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender1 \
-    libqt5gui5 \
-    && rm -rf /var/lib/apt/lists/*
+# 1. Cambiar los espejos de Ubuntu a un mirror HTTPS seguro (Kernel.org)
+RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|https://mirrors.kernel.org/ubuntu/|g' /etc/apt/sources.list && \
+    sed -i 's|http://security.ubuntu.com/ubuntu/|https://mirrors.kernel.org/ubuntu/|g' /etc/apt/sources.list
 
+# 2. Agregar el flag para ignorar la verificación de pares en el handshake inicial (por si la imagen base de Nvidia no tiene los certificados SSL instalados todavía). 
+# Nota: Esto es 100% seguro porque los paquetes de Ubuntu se siguen validando por sus claves GPG internas.
+RUN apt-get -o Acquire::https::Verify-Peer=false update && apt-get -o Acquire::https::Verify-Peer=false install -y \
+     python3.11 \
+     python3-pip \
+     ocrmypdf \
+     tesseract-ocr-spa \
+     ghostscript \
+     unpaper \
+     poppler-utils \
+     libgl1-mesa-glx \
+     libglib2.0-0 \
+     libsm6 \
+     libxext6 \
+     libxrender1 \
+     libqt5gui5 \
+     && rm -rf /var/lib/apt/lists/*
+     
 # Instalación de 'uv'
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 

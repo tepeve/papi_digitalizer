@@ -5,6 +5,8 @@ from __future__ import annotations
 import hashlib
 import logging
 import os
+import re
+import unicodedata
 from typing import Any, Dict, List, Optional
 from .telemetry import profile_time
 
@@ -14,9 +16,105 @@ from pdf2image import convert_from_path
 
 from .image_utils import align_page_orb, extract_rois
 from .llm_engine import process_icr_batch, process_table_batch
-from .schemas import SneepCompleto
+from .transformers import MacroRoiTransformer
 
 LOGGER = logging.getLogger(__name__)
+
+_NONE_MARKERS = {
+    "",
+    "ninguna",
+    "ninguno",
+    "none",
+    "null",
+    "sin marca",
+    "sin marcar",
+    "sin opcion",
+    "no marcada",
+    "no marcado",
+}
+
+
+def _normalize_text(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value)
+    normalized = "".join(char for char in normalized if not unicodedata.combining(char))
+    normalized = normalized.lower().strip()
+    normalized = re.sub(r"\s+", " ", normalized)
+    return normalized
+
+
+def _parse_multi_selection(value: Any) -> List[str]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+
+    text = str(value).strip()
+    if not text:
+        return []
+
+    normalized = _normalize_text(text)
+    if normalized in _NONE_MARKERS:
+        return []
+
+    tokens = re.split(r"[,;\n|]", text)
+    parsed = [token.strip() for token in tokens if token.strip()]
+    return parsed or [text]
+
+
+def _expand_multiple_choice_block(output: Dict[str, Any], field: Dict[str, Any]) -> bool:
+    target_mappings = field.get("target_mappings")
+    if not isinstance(target_mappings, dict) or not target_mappings:
+        return False
+
+    value = field.get("value")
+    selected_tokens = _parse_multi_selection(value)
+
+    normalized_labels = {
+        _normalize_text(label): destination
+        for label, destination in target_mappings.items()
+    }
+
+    selected_destinations: set[str] = set()
+    for token in selected_tokens:
+        token_norm = _normalize_text(token)
+        destination = normalized_labels.get(token_norm)
+
+        if destination is None:
+            for label_norm, candidate in normalized_labels.items():
+                if token_norm in label_norm or label_norm in token_norm:
+                    destination = candidate
+                    break
+
+        if destination is not None:
+            selected_destinations.add(destination)
+
+    for destination in target_mappings.values():
+        output[destination] = "Si" if destination in selected_destinations else "No"
+
+    return True
+
+
+def _expand_single_choice_block(output: Dict[str, Any], field: Dict[str, Any]) -> bool:
+    target_mappings = field.get("target_mappings")
+    if not isinstance(target_mappings, dict) or not target_mappings:
+        return False
+
+    value = field.get("value")
+    if value is None:
+        return True
+
+    raw = str(value).strip()
+    if not raw or _normalize_text(raw) in _NONE_MARKERS:
+        return True
+
+    normalized_key_map = {_normalize_text(key): mapped for key, mapped in target_mappings.items()}
+    normalized_value_map = {_normalize_text(mapped): mapped for mapped in target_mappings.values()}
+    resolved = normalized_key_map.get(_normalize_text(raw))
+    if resolved is None:
+        resolved = normalized_value_map.get(_normalize_text(raw))
+
+    output[field["field_id"]] = resolved if resolved is not None else value
+    return True
 
 
 def load_master_template(pdf_path: str) -> List[np.ndarray]:
@@ -39,18 +137,21 @@ def aggregate_results(extracted_fields: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     for field in extracted_fields:
         field_id = field["field_id"]
-        group = field.get("group")
         value = field.get("value")
+        field_type = field.get("type")
 
         if value is None or (isinstance(value, str) and value.strip() == ""):
             continue
 
-        if group is None:
-            output[field_id] = value
-        else:
-            if group not in output:
-                output[group] = {}
-            output[group][field_id] = value
+        if field_type == "multiple_choice_block" and _expand_multiple_choice_block(output, field):
+            continue
+
+        if field_type == "single_choice_block" and _expand_single_choice_block(output, field):
+            continue
+
+        # Keep aggregation flat: `group` is a UI concern and should not alter
+        # the payload shape consumed by the Pydantic model.
+        output[field_id] = value
 
     return output
 
@@ -110,7 +211,15 @@ def process_document(
                 continue
 
             omr_records = [record for record in page_records if record["type"] == "OMR"]
-            icr_records = [record for record in page_records if record["type"] == "ICR"]
+            icr_like_types = {
+                "ICR",
+                "text",
+                "number",
+                "date",
+                "multiple_choice_block",
+                "single_choice_block",
+            }
+            icr_records = [record for record in page_records if record["type"] in icr_like_types]
             table_records = [record for record in page_records if record["type"] == "TABLE_ICR"]
 
             all_extracted_fields.extend(omr_records)
@@ -126,6 +235,7 @@ def process_document(
                         "field_id": field_id,
                         "group": record.get("group"),
                         "type": record.get("type"),
+                        "target_mappings": record.get("target_mappings"),
                         "value": value,
                     }
                 )
@@ -149,10 +259,28 @@ def process_document(
             continue
 
     aggregated = aggregate_results(all_extracted_fields)
+
+    # Middleware injection: expand Macro-ROI consolidated outputs into
+    # schema-atomic fields before the final Pydantic validation.
+    transformer = MacroRoiTransformer()
+    aggregated = transformer.transform_aggregated_data(aggregated, template_mapping)
+
     aggregated["document_id"] = document_id
 
     try:
-        validated = SneepCompleto.model_validate(aggregated)
+        form_id = template_mapping.get("metadata", {}).get("form_id")
+        if form_id == "DIAG_INTEGRAL":
+            from .schemas import DiagnosticoIntegral
+
+            validated = DiagnosticoIntegral.model_validate(aggregated)
+        else:
+            try:
+                from .schemas import SneepCompleto
+            except ImportError:
+                from .schemas_old import SneepCompleto
+
+            validated = SneepCompleto.model_validate(aggregated)
+
         return validated.model_dump()
     except Exception as exc:
         LOGGER.error("Pydantic validation failed: %s", exc)
