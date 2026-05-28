@@ -14,10 +14,10 @@
       "type": "number",
       "group": "DATOS DE LA ENCUESTA",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        894,
+        1731,
+        567,
+        81
       ]
     },
     {
@@ -26,10 +26,10 @@
       "type": "date",
       "group": "DATOS DE LA ENCUESTA",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        177,
+        1723,
+        507,
+        99
       ]
     },
     {
@@ -38,34 +38,34 @@
       "type": "text",
       "group": "DATOS DE LA ENCUESTA",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        203,
+        1832,
+        1211,
+        104
       ]
     },
     {
       "field_id": "p1_s1_edad",
-      "page": 1,
+      "page": 2,
       "type": "number",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        169,
+        255,
+        554,
+        314
       ]
     },
     {
       "field_id": "p2_s1_genero",
-      "page": 1,
+      "page": 2,
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        166,
+        585,
+        598,
+        299
       ],
       "target_mappings": {
         "Varón": "Varón",
@@ -77,14 +77,14 @@
     },
     {
       "field_id": "p3_s1_nacionalidad",
-      "page": 1,
+      "page": 2,
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        166,
+        904,
+        613,
+        192
       ],
       "target_mappings": {
         "Argentina": "Argentina",
@@ -93,14 +93,14 @@
     },
     {
       "field_id": "p4_s1_residencia_previa",
-      "page": 1,
+      "page": 2,
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        169,
+        1110,
+        769,
+        257
       ],
       "target_mappings": {
         "CABA": "CABA",
@@ -111,26 +111,26 @@
     },
     {
       "field_id": "p5_s1_barrio_caba",
-      "page": 1,
+      "page": 2,
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        182,
+        1921,
+        1284,
+        257
       ]
     },
     {
       "field_id": "p5_s1_otra",
-      "page": 1,
+      "page": 2,
       "type": "text",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        185,
+        1837,
+        491,
+        68
       ]
     },
     {
@@ -159,14 +159,14 @@
     },
     {
       "field_id": "p6_s1_situacion_habitacional",
-      "page": 1,
+      "page": 3,
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        159,
+        359,
+        1112,
+        416
       ],
       "target_mappings": {
         "Vivienda alquilada": "Vivienda alquilada",
@@ -180,14 +180,14 @@
     },
     {
       "field_id": "p7_s1_nivel_educativo",
-      "page": 1,
+      "page": 3,
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        161,
+        787,
+        967,
+        356
       ],
       "target_mappings": {
         "Primario incompleto": "Primario incompleto",
@@ -200,14 +200,14 @@
     },
     {
       "field_id": "p8_s1_estudiaba",
-      "page": 1,
+      "page": 3,
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        166,
+        1157,
+        985,
+        179
       ],
       "target_mappings": {
         "Si": "Si",
@@ -216,14 +216,14 @@
     },
     {
       "field_id": "p9_s1_detalle_estudio",
-      "page": 1,
+      "page": 3,
       "type": "text",
       "group": "SECCIÓN 1",
       "roi": [
-        0,
-        0,
-        0,
-        0
+        166,
+        1344,
+        1312,
+        236
       ]
     },
     {
