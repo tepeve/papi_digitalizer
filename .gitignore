@@ -10,7 +10,6 @@ wheels/
 .venv
 
 # Data / outputs
-data/
 temp/
 
 # Local envs / venvs
@@ -43,7 +42,9 @@ data/*
 !data/output/.gitkeep
 !data/processed/.gitkeep
 !data/quarantine/.gitkeep
+!data/template/
 !data/template/.gitkeep
+!data/template/master_template.pdf
 !data/raw/.gitkeep
 
 
