@@ -45,6 +45,7 @@ data/*
 !data/template/
 !data/template/.gitkeep
 !data/template/master_template.pdf
+data/template/_rendered_master/
 !data/raw/.gitkeep
 
 
