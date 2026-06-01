@@ -24,7 +24,6 @@ logging.basicConfig(
 )
 LOGGER = logging.getLogger(__name__)
 
-
 def handle_sigterm(signum, frame):
     LOGGER.info("Señal SIGTERM recibida. Interrumpiendo el pipeline de forma segura...")
     sys.exit(0)
@@ -32,7 +31,7 @@ def handle_sigterm(signum, frame):
 def main() -> None:
     # Registrar la señal al inicio del main
     signal.signal(signal.SIGTERM, handle_sigterm)
-
+    
     if not os.path.exists(TEMPLATE_JSON):
         _print_error(f"Template JSON not found: {TEMPLATE_JSON}")
         return

@@ -2,19 +2,29 @@ import json
 import os
 import shutil
 import traceback
-from typing import Dict, List, Optional
-from .telemetry import profile_time
+import hashlib
 import logging
-
-LOGGER = logging.getLogger(__name__)
+from typing import Dict, List, Optional
 
 from tqdm import tqdm
+from .telemetry import profile_time
 
 from .database import persist_results
 from .pipeline import load_master_template, process_document
 from .preprocessor import limpiar_pdf
 
+LOGGER = logging.getLogger(__name__)
+
 SUPPORTED_EXTENSIONS = {".pdf"}
+
+
+def _sha256_file(path: str) -> str:
+    """Calcula hash del archivo original para trazabilidad estable."""
+    hasher = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(8192), b""):
+            hasher.update(chunk)
+    return hasher.hexdigest()
 
 
 def _ensure_dir(path: str) -> None:
@@ -33,18 +43,20 @@ def _iter_document_files(input_dir: str) -> List[str]:
     return sorted(files)
 
 
-def _quarantine_file(pdf_path: str, error_text: str, payload: Optional[Dict[str, object]] = None) -> None:
+def _quarantine_file(
+    pdf_path: str,
+    error_text: str,
+    document_id: str,
+    payload: Optional[Dict[str, object]] = None,
+) -> None:
     quarantine_dir = os.path.join("data", "quarantine")
     _ensure_dir(quarantine_dir)
 
+    prefix = document_id[:8]
     stem = os.path.splitext(os.path.basename(pdf_path))[0]
-    dest_path = os.path.join(quarantine_dir, os.path.basename(pdf_path))
-    error_path = os.path.join(quarantine_dir, f"{stem}_error.txt")
-    data_path = os.path.join(quarantine_dir, f"{stem}_data.json")
-
-    if os.path.exists(dest_path):
-        base, ext = os.path.splitext(os.path.basename(pdf_path))
-        dest_path = os.path.join(quarantine_dir, f"{base}_dup{ext}")
+    dest_path = os.path.join(quarantine_dir, f"{prefix}_{os.path.basename(pdf_path)}")
+    error_path = os.path.join(quarantine_dir, f"{prefix}_{stem}_error.txt")
+    data_path = os.path.join(quarantine_dir, f"{prefix}_{stem}_data.json")
 
     shutil.move(pdf_path, dest_path)
 
@@ -64,7 +76,7 @@ def process_batch(
 ) -> Optional[Dict[str, object]]:
     files = _iter_document_files(input_dir)
     if not files:
-        print(f"No se encontraron PDFs en {input_dir}.")
+        LOGGER.info("No se encontraron PDFs en %s.", input_dir)
         return None
 
     master_pages = load_master_template(master_pdf_path)
@@ -76,45 +88,41 @@ def process_batch(
     apply_cleaning = os.getenv("CLEAN_SCANS", "0").strip().lower() in {"1", "true", "yes"}
 
     for raw_pdf_path in tqdm(files, desc="Procesando", unit="pdf"):
-        # Mantenemos registro del PDF original para cuarentenas y hash
-        process_path = raw_pdf_path 
-        
+        doc_id = _sha256_file(raw_pdf_path)
+        process_path = raw_pdf_path
+
         try:
             if apply_cleaning:
                 cleaned_pdf_path = limpiar_pdf(raw_pdf_path, "data/cleaned")
                 if cleaned_pdf_path is None:
                     quarantine_count += 1
-                    _quarantine_file(raw_pdf_path, "Error al limpiar el PDF.\n")
+                    _quarantine_file(raw_pdf_path, "Error en limpieza (ocrmypdf).", doc_id)
                     continue
                 process_path = cleaned_pdf_path
 
-            # IMPORTANTE: Procesamos el limpio, pero si tuvieras forma de pasarle 
-            # el hash original a process_document sería ideal. 
-            # Como mínimo, ahora la cuarentena no se rompe.
-            data = process_document(process_path, master_pages, template_mapping)
-            
+            data = process_document(process_path, master_pages, template_mapping, forced_id=doc_id)
+
             if data is None:
                 quarantine_count += 1
-                _quarantine_file(raw_pdf_path, "Pipeline devolvio None.\n")
+                _quarantine_file(raw_pdf_path, "El pipeline devolvio un objeto nulo.", doc_id)
                 continue
 
             if "errors" in data:
                 quarantine_count += 1
-                error_text = f"Pydantic validation failed: {data.get('errors', '')}\n"
-                _quarantine_file(raw_pdf_path, error_text, payload=data.get("data"))
+                error_text = f"Fallo en validacion Pydantic: {data.get('errors', '')}\n"
+                _quarantine_file(raw_pdf_path, error_text, doc_id, payload=data.get("data"))
                 continue
 
             results.append(data)
             success_count += 1
-            
-            # Limpieza (Opcional): Borrar el archivo original si todo salió bien, 
-            # o moverlo a una carpeta de "completados".
-            # os.remove(raw_pdf_path) 
-            
+
+            if apply_cleaning and process_path != raw_pdf_path and os.path.exists(process_path):
+                os.remove(process_path)
+
         except Exception:
             quarantine_count += 1
             error_text = traceback.format_exc()
-            _quarantine_file(raw_pdf_path, error_text) # Envia el ORIGINAL a cuarentena
+            _quarantine_file(raw_pdf_path, error_text, doc_id)
             continue
 
     if results:

@@ -123,6 +123,7 @@ Cargar los PDFs a procesar arrastrándolos desde el explorador de VS Code hacia 
 | `DEBUG_MODE` | `1` / `0` | Guarda imágenes de debug en `data/processed/<sha256>/` |
 | `OLLAMA_HOST` | URL | Endpoint del servidor Ollama (default interno: `http://ollama:11434`) |
 | `CLEAN_SCANS` | `1` / `0` | Activa pre-procesamiento de imagenes antes de que el modelo (Qwen2.5-VL) analice el documento.
+| `CLEAN_STRATEGY` | `fast` / `robust` | Estrategia de limpieza cuando `CLEAN_SCANS=1`: `fast` prioriza costo CPU, `robust` prioriza calidad (deskew + OCR forzado). |
 
 
 ## Notas
