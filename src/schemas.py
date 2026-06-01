@@ -46,10 +46,19 @@ class DependenciaEconomica(str, Enum):
     NS_NC = "Ns/Nc"
 
 class IdentidadGenero(str, Enum):
-    VARON = "Varón"
-    MUJER = "Mujer"
-    TRANS_TRAVESTI = "Trans/Travesti"
+    VARON_CIS = "Varón_Cis"
+    MUJER_CIS = "Mujer_Cis"
+    VARON_TRANS = "Varón_Trans"
+    MUJER_TRANS = "Mujer_Trans"
     NO_BINARIE_OTRA = "No binarie/otra"
+    PREFIERE_NO_RESPONDER = "Prefiere no responder"
+
+class OrientacionSexual(str, Enum):
+    HETEROSEXUAL = "Heterosexual"
+    HOMOSEXUAL = "Homosexual"
+    BISEXUAL = "Bisexual"
+    ASEXUAL = "Asexual"
+    OTRA = "Otra"
     PREFIERE_NO_RESPONDER = "Prefiere no responder"
 
 class Nacionalidad(str, Enum):
@@ -282,13 +291,16 @@ class DiagnosticoIntegral(BaseModel):
     # --- SECCIÓN 1: DATOS DEMOGRÁFICOS ---
     p1_s1_edad: Optional[int] = Field(None, json_schema_extra=meta("Numérica", "Razón", "int"))
     p2_s1_genero: Optional[IdentidadGenero] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
+    p2a_s1_orientacion_sexual: Optional[OrientacionSexual] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p3_s1_nacionalidad: Optional[Nacionalidad] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p4_s1_residencia_previa: Optional[ResidenciaPrevia] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p5_s1_otra: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p5_s1_partido_amba: Optional[str] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string")) # Se mantiene str abierto para evitar enums de 40+ elementos en extracción OCR directa, pero validados lógicamente.
+    p5_s1_partido_amba_otro: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p5_s1_barrio_caba: Optional[str] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
+    p5_s1_barrio_caba_otro: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p6_s1_situacion_habitacional: Optional[SituacionHabitacional] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
-    p6_s1_otra: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
+    p6_s1_situacion_habitacional_otro: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p7_s1_nivel_educativo: Optional[NivelEducativo] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p8_s1_estudiaba: Optional[SiNo] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p9_s1_detalle_estudio: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
@@ -360,7 +372,6 @@ class DiagnosticoIntegral(BaseModel):
     # --- SECCIÓN 5: USO DEL TIEMPO ---
     p40_s5_salida_celda: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p41_s5_apertura: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
-    p41_s5_apertura_carga_horaria: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p42_s5_cierre: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p43_s5_acceso_actividades: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p44_s5_frecuencia_actividades: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
@@ -369,15 +380,14 @@ class DiagnosticoIntegral(BaseModel):
     p45_s5_charlas: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
     p45_s5_talleres: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
     p45_s5_otras: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
-    p46_s5_otra_actividad_texto: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
+    p45_s5_otra_actividad_texto: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
+    p46_descripcion_dia: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
+
 
     # --- SECCIÓN 6: ACCESO A LA SALUD INTEGRAL ---
-    p47_s6_comisaria: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
-    p47_s6_alcaidia: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
-    p47_s6_no: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
-    p47_s6_ns_nc: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
+    p47_s6_comisaria: Optional[SiNo] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p48_s6_tipo_profesional: Optional[TipoProfesionalSalud] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
-    p48_s6_tipo_organismo: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
+    p48_detalle_organismo: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p49_s6_presencia_policial: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p50_s6_enfermedad: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p51_s6_enfermedad_detalle: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
@@ -398,25 +408,23 @@ class DiagnosticoIntegral(BaseModel):
     p63_s7_seguridad_percibida: Optional[SeguridadPercibida] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p64_s7_robo: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p65_s7_ramenazas: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
-    p66_s7_agresion_fisica: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
+    p66_s7_agresiones_detenidos: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p67_s7_cese_agresion: Optional[CeseAgresion] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p68_s7_cambio_alojamiento: Optional[CambioAlojamiento] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
-    p69_s7_respuesta_agentes: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
-    p70_s7_frecuencia_requisa: Optional[FrecuenciaRequisa] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
-    p71_s7_recuentos_diarios: Optional[EscalaNumericaCorta] = Field(None, json_schema_extra=meta("Cerrada - única", "Razón", "string"))
+    p69_s7_sanciones: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
+    p70_s7_especificacion_sanciones: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
+    p71_agresion_detencion: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
+    
+    p72_s7_respuesta_agentes: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
+    p73_s7_frecuencia_requisa: Optional[FrecuenciaRequisa] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
+    p74_s7_recuentos_diarios: Optional[EscalaNumericaCorta] = Field(None, json_schema_extra=meta("Cerrada - única", "Razón", "string"))
 
     # --- SECCIÓN 8: DINÁMICAS DE CONVIVENCIA INSTITUCIONAL ---
-    p72_s8_reglas_claras: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
-    p73_s8_aplicacion_justa: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
-    p74_s8_conflicto_internos: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
-    p74_s8_conflicto_policia: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
-    p74_s8_sin_conflicto: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
-    p74_s8_ns_nc: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
-    p75_s8_sanciones_informales: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
-    p76_s8_violencia_fisica: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
+    p75_s8_reglas_claras: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
+    p76_s8_respuesta_reclamos: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p77_s8_testigo_requisa: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p78_s8_requisa_dignidad: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
-
+    
     # --- SECCIÓN 9: VINCULACIÓN FAMILIAR Y SOCIOAFECTIVA ---
     p79_s9_llamadas: Optional[FrecuenciaLlamadas] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p80_s9_duracion_llamadas: Optional[DuracionLlamadas] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))

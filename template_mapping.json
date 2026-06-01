@@ -5,7 +5,7 @@
       "width": 1700,
       "height": 2200
     },
-    "pages_count": 16
+    "pages_count": 17
   },
   "fields": [
     {
@@ -14,10 +14,10 @@
       "type": "number",
       "group": "DATOS DE LA ENCUESTA",
       "roi": [
-        894,
-        1731,
-        567,
-        81
+        842,
+        1713,
+        611,
+        127
       ]
     },
     {
@@ -45,15 +45,1747 @@
       ]
     },
     {
+      "field_id": "p5_s1_barrio_caba_otro",
+      "page": 3,
+      "type": "text",
+      "group": "SECCIÓN 1",
+      "roi": [
+        180,
+        885,
+        520,
+        60
+      ]
+    },
+    {
+      "field_id": "p5_s1_partido_amba",
+      "page": 3,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 1",
+      "roi": [
+        170,
+        130,
+        1340,
+        270
+      ]
+    },
+    {
+      "field_id": "p5_s1_partido_amba_otro",
+      "page": 3,
+      "type": "text",
+      "group": "SECCIÓN 1",
+      "roi": [
+        180,
+        390,
+        520,
+        60
+      ]
+    },
+    {
+      "field_id": "p6_s1_situacion_habitacional_otro",
+      "page": 3,
+      "type": "text",
+      "group": "SECCIÓN 1",
+      "roi": [
+        160,
+        970,
+        1360,
+        416
+      ]
+    },
+    {
+      "field_id": "p10_s1_trabajaba",
+      "page": 4,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 1",
+      "roi": [
+        146,
+        434,
+        325,
+        174
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No"
+      }
+    },
+    {
+      "field_id": "p11_s1_otro",
+      "page": 4,
+      "type": "text",
+      "group": "SECCIÓN 1",
+      "roi": [
+        160,
+        589,
+        1360,
+        454
+      ]
+    },
+    {
+      "field_id": "p11_s1_tipo_trabajo",
+      "page": 4,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 1",
+      "roi": [
+        143,
+        694,
+        1390,
+        400
+      ],
+      "target_mappings": {
+        "Formal tiempo completo": "Formal tiempo completo",
+        "Formal tiempo parcial": "Formal tiempo parcial",
+        "Informal tiempo completo": "Informal tiempo completo",
+        "Informal tiempo parcial": "Informal tiempo parcial",
+        "Changa": "Changa",
+        "Cuenta propia": "Cuenta propia",
+        "Otro": "Otro",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p12_s1_busqueda_trabajo",
+      "page": 4,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 1",
+      "roi": [
+        148,
+        1177,
+        299,
+        187
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p13_s2_situacion_conyugal",
+      "page": 4,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        130,
+        1583,
+        686,
+        309
+      ],
+      "target_mappings": {
+        "Soltero/a": "Soltero/a",
+        "En pareja estable": "En pareja estable",
+        "Casado/a": "Casado/a",
+        "Viudo/a": "Viudo/a",
+        "Divorciado/a o separado/a": "Divorciado/a o separado/a",
+        "Otra": "Otra",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p14_s2_tiene_hijos",
+      "page": 4,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        148,
+        1980,
+        262,
+        143
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No"
+      }
+    },
+    {
+      "field_id": "p15_s2_cant_hijos_menores",
+      "page": 5,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        146,
+        236,
+        288,
+        174
+      ],
+      "target_mappings": {
+        "Uno": "Uno",
+        "Dos": "Dos",
+        "Tres o más": "Tres o más"
+      }
+    },
+    {
+      "field_id": "p16_s2_bloque",
+      "page": 5,
+      "type": "multiple_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        135,
+        486,
+        600,
+        288
+      ],
+      "target_mappings": {
+        "Con usted": "p16_s2_con_usted",
+        "Con otro padre/madre": "p16_s2_otro_padre",
+        "Con otro familiar 1": "p16_s2_otro_familiar_1",
+        "Con otro familiar 2": "p16_s2_otro_familiar_2",
+        "Solo/a": "p16_s2_solo",
+        "Sin vinculo": "p16_s2_sin_vinculo",
+        "Ns/Nc": "p16_s2_ns_nc"
+      }
+    },
+    {
+      "field_id": "p17_s2_bloque",
+      "page": 5,
+      "type": "multiple_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        122,
+        860,
+        637,
+        314
+      ],
+      "target_mappings": {
+        "Con otro padre/madre": "p17_s2_otro_padre",
+        "Con otro familiar": "p17_s2_otro_familiar",
+        "Con institucion": "p17_s2_institucion",
+        "Solo/a": "p17_s2_solo",
+        "Sin vinculo": "p17_s2_sin_vinculo",
+        "Ns/Nc": "p17_s2_ns_nc"
+      }
+    },
+    {
+      "field_id": "p18_s2_hijo1_dep",
+      "page": 5,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        135,
+        1307,
+        333,
+        244
+      ],
+      "target_mappings": {
+        "Totalmente": "Totalmente",
+        "Parcialmente": "Parcialmente",
+        "No dependía": "No dependía",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p18_s2_hijo2_dep",
+      "page": 5,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        455,
+        1307,
+        312,
+        239
+      ],
+      "target_mappings": {
+        "Totalmente": "Totalmente",
+        "Parcialmente": "Parcialmente",
+        "No dependía": "No dependía",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p18_s2_hijo3_dep",
+      "page": 5,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        761,
+        1310,
+        304,
+        242
+      ],
+      "target_mappings": {
+        "Totalmente": "Totalmente",
+        "Parcialmente": "Parcialmente",
+        "No dependía": "No dependía",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p18_s2_hijo4_dep",
+      "page": 5,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        1084,
+        1299,
+        403,
+        247
+      ],
+      "target_mappings": {
+        "Totalmente": "Totalmente",
+        "Parcialmente": "Parcialmente",
+        "No dependía": "No dependía",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p19_s2_otras_personas_a_cargo",
+      "page": 5,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        140,
+        1601,
+        325,
+        198
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p20_s2_quienes_a_cargo",
+      "page": 5,
+      "type": "text",
+      "group": "SECCIÓN 2",
+      "roi": [
+        159,
+        1840,
+        1237,
+        104
+      ]
+    },
+    {
+      "field_id": "p21_s2_contacto_familiar",
+      "page": 5,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 2",
+      "roi": [
+        146,
+        2004,
+        268,
+        169
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No"
+      }
+    },
+    {
+      "field_id": "p22_s2_quienes_contacto",
+      "page": 6,
+      "type": "text",
+      "group": "SECCIÓN 2",
+      "roi": [
+        169,
+        234,
+        1255,
+        122
+      ]
+    },
+    {
+      "field_id": "p23_s3_primera_detencion",
+      "page": 6,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        156,
+        678,
+        260,
+        143
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No"
+      }
+    },
+    {
+      "field_id": "p24_s3_edad_primer_contacto",
+      "page": 6,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        151,
+        962,
+        325,
+        224
+      ],
+      "target_mappings": {
+        "Menor de 18": "Menor de 18",
+        "18–24": "18–24",
+        "25–34": "25–34",
+        "35 o más": "35 o más"
+      }
+    },
+    {
+      "field_id": "p25_s3_cantidad_detenciones",
+      "page": 6,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        130,
+        1240,
+        301,
+        224
+      ],
+      "target_mappings": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4 o más": "4 o más"
+      }
+    },
+    {
+      "field_id": "p26_s3_bloque",
+      "page": 6,
+      "type": "multiple_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        140,
+        1578,
+        881,
+        257
+      ],
+      "target_mappings": {
+        "Comisaria": "p26_s3_comisaria",
+        "Alcaidia": "p26_s3_alcaidia",
+        "Unidad penitenciaria": "p26_s3_unidad_penitenciaria",
+        "Institucion de salud mental": "p26_s3_salud_mental",
+        "Centro juvenil": "p26_s3_juvenil"
+      }
+    },
+    {
+      "field_id": "p27_s3_condenas_previas",
+      "page": 6,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        146,
+        1887,
+        294,
+        185
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p28_s3_anio_ultima_detencion",
+      "page": 6,
+      "type": "number",
+      "group": "SECCIÓN 3",
+      "roi": [
+        954,
+        2058,
+        650,
+        125
+      ]
+    },
+    {
+      "field_id": "p29_s3_duracion_ultima_detencion",
+      "page": 7,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        143,
+        203,
+        387,
+        221
+      ],
+      "target_mappings": {
+        "0–6 meses": "0–6 meses",
+        "6–18 meses": "6–18 meses",
+        "18 meses–3 años": "18 meses–3 años",
+        "Más de 3 años": "Más de 3 años"
+      }
+    },
+    {
+      "field_id": "p30_s3_provincia_ultimo_est",
+      "page": 7,
+      "type": "text",
+      "group": "SECCIÓN 3",
+      "roi": [
+        567,
+        504,
+        834,
+        138
+      ]
+    },
+    {
+      "field_id": "p30_s3_ultimo_establecimiento",
+      "page": 7,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        151,
+        494,
+        824,
+        161
+      ],
+      "target_mappings": {
+        "En una cárcel Federal": "En una cárcel Federal",
+        "En una cárcel provincial": "En una cárcel provincial",
+        "Comisaría o alcaidía de CABA": "Comisaría o alcaidía de CABA"
+      }
+    },
+    {
+      "field_id": "p31_s3_ofreciemiento_ayuda",
+      "page": 7,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        130,
+        722,
+        369,
+        185
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p32_s3_ayuda_detalle",
+      "page": 7,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        143,
+        962,
+        1367,
+        257
+      ],
+      "target_mappings": {
+        "Búsqueda laboral": "Búsqueda laboral",
+        "Ayuda habitacional": "Ayuda habitacional",
+        "Tratamiento de salud o de adicciones": "Tratamiento de salud o de adicciones",
+        "otra": "otra",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p32_s3_ayuda_detalle_otra",
+      "page": 7,
+      "type": "text",
+      "group": "SECCIÓN 3",
+      "roi": [
+        192,
+        1146,
+        1336,
+        83
+      ]
+    },
+    {
+      "field_id": "p33_s3_personas_ofrecimiento",
+      "page": 7,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 3",
+      "roi": [
+        169,
+        1318,
+        1276,
+        231
+      ],
+      "target_mappings": {
+        "Organismo estatal (patronato, programa ministerial o de justicia, etc)": "Organismo estatal (patronato, programa ministerial o de justicia, etc)",
+        "Sociedad civil (ong, iglesia, etc)": "Sociedad civil (ong, iglesia, etc)",
+        "otra": "otra"
+      }
+    },
+    {
+      "field_id": "p33_s3_personas_ofrecimientos_otra",
+      "page": 7,
+      "type": "text",
+      "group": "SECCIÓN 3",
+      "roi": [
+        195,
+        1427,
+        1276,
+        86
+      ]
+    },
+    {
+      "field_id": "p34_s4_tiempo_detenido",
+      "page": 7,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 4",
+      "roi": [
+        164,
+        1928,
+        460,
+        275
+      ],
+      "target_mappings": {
+        "Menos de 1 mes": "Menos de 1 mes",
+        "Entre 1 y 6 meses": "Entre 1 y 6 meses",
+        "Más de 6 meses": "Más de 6 meses",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p35_s4_acceso_abogado",
+      "page": 8,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 4",
+      "roi": [
+        138,
+        192,
+        476,
+        231
+      ],
+      "target_mappings": {
+        "Sí, abogado particular": "Sí, abogado particular",
+        "Sí, defensor público": "Sí, defensor público",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p36_s4_contacto_abogado",
+      "page": 8,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 4",
+      "roi": [
+        160,
+        399,
+        1360,
+        226
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p37_s4_situacion_legal_actual",
+      "page": 8,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 4",
+      "roi": [
+        153,
+        722,
+        398,
+        185
+      ],
+      "target_mappings": {
+        "Procesado/a": "Procesado/a",
+        "Condenado/a": "Condenado/a",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p38_s4_duracion_resto_condena",
+      "page": 8,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 4",
+      "roi": [
+        151,
+        1008,
+        457,
+        257
+      ],
+      "target_mappings": {
+        "0–3 meses": "0–3 meses",
+        "3–6 meses": "3–6 meses",
+        "6–12 meses": "6–12 meses",
+        "Más de 12 meses": "Más de 12 meses",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p39_s4_conocimiento_causa",
+      "page": 8,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 4",
+      "roi": [
+        143,
+        1364,
+        265,
+        185
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p40_s5_salida_celda",
+      "page": 8,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 5",
+      "roi": [
+        133,
+        1720,
+        437,
+        187
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p41_s5_apertura",
+      "page": 8,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 5",
+      "roi": [
+        151,
+        1980,
+        301,
+        218
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p42_s5_cierre",
+      "page": 9,
+      "type": "text",
+      "group": "SECCIÓN 5",
+      "roi": [
+        153,
+        182,
+        1312,
+        185
+      ]
+    },
+    {
+      "field_id": "p43_s5_acceso_actividades",
+      "page": 9,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 5",
+      "roi": [
+        148,
+        515,
+        356,
+        182
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p44_s5_frecuencia_actividades",
+      "page": 9,
+      "type": "text",
+      "group": "SECCIÓN 5",
+      "roi": [
+        143,
+        743,
+        1250,
+        107
+      ]
+    },
+    {
+      "field_id": "p45_s5_bloque",
+      "page": 9,
+      "type": "multiple_choice_block",
+      "group": "SECCIÓN 5",
+      "roi": [
+        117,
+        936,
+        1019,
+        304
+      ],
+      "target_mappings": {
+        "Actividad religiosa": "p45_s5_religiosa",
+        "Deporte en equipo": "p45_s5_deporte_equipo",
+        "Charlas": "p45_s5_charlas",
+        "Talleres": "p45_s5_talleres",
+        "Otras": "p45_s5_otras"
+      }
+    },
+    {
+      "field_id": "p45_s5_otra_actividad_texto",
+      "page": 9,
+      "type": "text",
+      "group": "SECCIÓN 5",
+      "roi": [
+        182,
+        1138,
+        712,
+        91
+      ]
+    },
+    {
+      "field_id": "p47_s6_bloque",
+      "page": 9,
+      "type": "multiple_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        160,
+        1698,
+        1360,
+        382
+      ],
+      "target_mappings": {
+        "Comisaria": "p47_s6_comisaria",
+        "Alcaidia": "p47_s6_alcaidia",
+        "No": "p47_s6_no",
+        "Ns/Nc": "p47_s6_ns_nc"
+      }
+    },
+    {
+      "field_id": "p48_s6_tipo_profesional",
+      "page": 10,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        160,
+        133,
+        1360,
+        302
+      ],
+      "target_mappings": {
+        "Personal de salud de la policia interviniente": "Personal de salud de la policia interviniente",
+        "Personal de salud de otro organismo público.": "Personal de salud de otro organismo público.",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p49_s6_presencia_policial",
+      "page": 10,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        153,
+        509,
+        1149,
+        182
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p50_s6_enfermedad",
+      "page": 10,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        143,
+        774,
+        426,
+        174
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p51_s6_enfermedad_detalle",
+      "page": 10,
+      "type": "text",
+      "group": "SECCIÓN 6",
+      "roi": [
+        151,
+        1060,
+        1409,
+        125
+      ]
+    },
+    {
+      "field_id": "p52_s6_requiere_tratamiento",
+      "page": 10,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        109,
+        1302,
+        564,
+        164
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p53_s6_tratamiento_actual",
+      "page": 10,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        127,
+        1533,
+        720,
+        224
+      ],
+      "target_mappings": {
+        "Sí, en alcaidía": "Sí, en alcaidía",
+        "Sí, en un efector de salud externo": "Sí, en un efector de salud externo",
+        "No está garantizado": "No está garantizado",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p54_s6_necesidad_atencion_externa",
+      "page": 10,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        143,
+        1837,
+        613,
+        148
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No"
+      }
+    },
+    {
+      "field_id": "p55_s6_gestion_turno",
+      "page": 11,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        146,
+        133,
+        1201,
+        265
+      ],
+      "target_mappings": {
+        "Gestionado por el personal policial": "Gestionado por el personal policial",
+        "Gestionado por familiar o referente socio-afectivo": "Gestionado por familiar o referente socio-afectivo",
+        "Otro": "Otro"
+      }
+    },
+    {
+      "field_id": "p55_s6_gestion_turno_otro",
+      "page": 11,
+      "type": "text",
+      "group": "SECCIÓN 6",
+      "roi": [
+        164,
+        346,
+        1185,
+        75
+      ]
+    },
+    {
+      "field_id": "p56_s6_tiempo_turno",
+      "page": 11,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        138,
+        517,
+        925,
+        307
+      ],
+      "target_mappings": {
+        "1–3 días": "1–3 días",
+        "3–7 días": "3–7 días",
+        "7–15 días": "7–15 días",
+        "1 mes": "1 mes",
+        "2 meses": "2 meses",
+        "3 meses o más": "3 meses o más"
+      }
+    },
+    {
+      "field_id": "p57_s6_acceso_turno",
+      "page": 11,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        114,
+        897,
+        460,
+        161
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p58_s6_tipo_efector",
+      "page": 11,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        130,
+        1123,
+        606,
+        172
+      ],
+      "target_mappings": {
+        "Hospital público": "Hospital público",
+        "Centro de salud": "Centro de salud",
+        "Clínica privada": "Clínica privada",
+        "Otro": "Otro",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p59_s6_perdio_turno",
+      "page": 11,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        117,
+        1377,
+        390,
+        166
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p60_s6_calidad_atencion",
+      "page": 11,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        125,
+        1617,
+        400,
+        299
+      ],
+      "target_mappings": {
+        "Muy buena": "Muy buena",
+        "Buena": "Buena",
+        "Regular": "Regular",
+        "Mala": "Mala",
+        "Muy mala": "Muy mala",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p61_s6_tratamiento_salud_mental",
+      "page": 11,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        140,
+        1978,
+        268,
+        200
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p62_s6_entrevista_psicologica",
+      "page": 12,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 6",
+      "roi": [
+        148,
+        211,
+        346,
+        205
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p63_s7_seguridad_percibida",
+      "page": 12,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        114,
+        756,
+        632,
+        309
+      ],
+      "target_mappings": {
+        "Muy seguro/a": "Muy seguro/a",
+        "Seguro/a": "Seguro/a",
+        "Ni seguro ni inseguro": "Ni seguro ni inseguro",
+        "Poco seguro/a": "Poco seguro/a",
+        "Nada seguro/a": "Nada seguro/a",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p64_s7_robo",
+      "page": 12,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        117,
+        1138,
+        374,
+        182
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p65_s7_ramenazas",
+      "page": 12,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        112,
+        1364,
+        413,
+        190
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p66_s7_agresiones_detenidos",
+      "page": 12,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        112,
+        1609,
+        377,
+        190
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p67_s7_cese_agresion",
+      "page": 12,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        140,
+        1931,
+        619,
+        255
+      ],
+      "target_mappings": {
+        "Intervención de otros detenidos": "Intervención de otros detenidos",
+        "Intervención de personal policial": "Intervención de personal policial",
+        "Espontáneamente": "Espontáneamente",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p68_s7_cambio_alojamiento",
+      "page": 13,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        117,
+        205,
+        923,
+        260
+      ],
+      "target_mappings": {
+        "Sí, me cambiaron de alojamiento": "Sí, me cambiaron de alojamiento",
+        "Sí, cambiaron de alojamiento al agresor": "Sí, cambiaron de alojamiento al agresor",
+        "Nos cambiaron de alojamiento a ambos": "Nos cambiaron de alojamiento a ambos",
+        "No hubo cambio de alojamiento, siguió conviviendo con su agresor": "No hubo cambio de alojamiento, siguió conviviendo con su agresor",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p69_s7_sanciones",
+      "page": 13,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        109,
+        515,
+        421,
+        187
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p70_s7_especificacion_sanciones",
+      "page": 13,
+      "type": "text",
+      "group": "SECCIÓN 7",
+      "roi": [
+        138,
+        774,
+        1388,
+        148
+      ]
+    },
+    {
+      "field_id": "p72_s7_respuesta_agentes",
+      "page": 13,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        133,
+        1258,
+        322,
+        211
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p73_s7_frecuencia_requisa",
+      "page": 13,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        114,
+        1526,
+        574,
+        343
+      ],
+      "target_mappings": {
+        "Todos los días": "Todos los días",
+        "Varias veces por semana": "Varias veces por semana",
+        "Una vez por semana": "Una vez por semana",
+        "Cada quince días": "Cada quince días",
+        "Una vez por mes": "Una vez por mes",
+        "Menos de una vez por mes": "Menos de una vez por mes",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p74_s7_recuentos_diarios",
+      "page": 13,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        101,
+        1952,
+        450,
+        257
+      ],
+      "target_mappings": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4"
+      }
+    },
+    {
+      "field_id": "p74_s8_bloque",
+      "page": 13,
+      "type": "multiple_choice_block",
+      "group": "SECCIÓN 8",
+      "roi": [
+        160,
+        1768,
+        1360,
+        312
+      ],
+      "target_mappings": {
+        "Conflicto con internos": "p74_s8_conflicto_internos",
+        "Conflicto con policia": "p74_s8_conflicto_policia",
+        "Sin conflicto": "p74_s8_sin_conflicto",
+        "Ns/Nc": "p74_s8_ns_nc"
+      }
+    },
+    {
+      "field_id": "p75_s8_reglas_claras",
+      "page": 14,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 8",
+      "roi": [
+        107,
+        473,
+        429,
+        224
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p76_s8_respuesta_reclamos",
+      "page": 14,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 8",
+      "roi": [
+        117,
+        754,
+        390,
+        231
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p77_s8_testigo_requisa",
+      "page": 14,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 8",
+      "roi": [
+        114,
+        1037,
+        392,
+        236
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p78_s8_requisa_dignidad",
+      "page": 14,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 8",
+      "roi": [
+        109,
+        1328,
+        452,
+        268
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p92_s8_genero_requisa_nna",
+      "page": 17,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 8",
+      "roi": [
+        127,
+        247,
+        338,
+        203
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p79_s9_llamadas",
+      "page": 14,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        135,
+        1845,
+        478,
+        309
+      ],
+      "target_mappings": {
+        "Una vez por día": "Una vez por día",
+        "Día por medio": "Día por medio",
+        "Una vez por semana": "Una vez por semana",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p80_s9_duracion_llamadas",
+      "page": 15,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        125,
+        239,
+        650,
+        299
+      ],
+      "target_mappings": {
+        "15 minutos": "15 minutos",
+        "30 minutos": "30 minutos",
+        "45 minutos": "45 minutos",
+        "1 hora": "1 hora",
+        "No tiene una duración pautada": "No tiene una duración pautada",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p81_s9_recibe_visitas",
+      "page": 15,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        114,
+        590,
+        382,
+        198
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p82_s9_frecuencia_visita",
+      "page": 15,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        107,
+        917,
+        611,
+        307
+      ],
+      "target_mappings": {
+        "Todas las semanas": "Todas las semanas",
+        "Cada 15 días": "Cada 15 días",
+        "1 vez por mes": "1 vez por mes",
+        "Cada tanto": "Cada tanto",
+        "Casi nunca": "Casi nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p83_s9_bloque",
+      "page": 15,
+      "type": "multiple_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        88,
+        1281,
+        769,
+        395
+      ],
+      "target_mappings": {
+        "En pareja estable": "p83_s9_pareja",
+        "Hijos/as": "p83_s9_hijos",
+        "Madre": "p83_s9_madre",
+        "Padre": "p83_s9_padre",
+        "Hermanos/as": "p83_s9_hermanos",
+        "Amigos/as": "p83_s9_amigos",
+        "Vecinos/as": "p83_s9_vecinos",
+        "Otro": "p83_s9_otro"
+      }
+    },
+    {
+      "field_id": "p83_s9_otro_texto",
+      "page": 15,
+      "type": "text",
+      "group": "SECCIÓN 9",
+      "roi": [
+        135,
+        1591,
+        746,
+        81
+      ]
+    },
+    {
+      "field_id": "p84_s9_suspension_visitas",
+      "page": 15,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        94,
+        1718,
+        452,
+        205
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p85_s9_requisa_visitantes",
+      "page": 15,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        107,
+        1967,
+        392,
+        270
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p86_s9_trato_requisa_visitante",
+      "page": 16,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        107,
+        234,
+        509,
+        301
+      ],
+      "target_mappings": {
+        "Muy respetuoso": "Muy respetuoso",
+        "Respetuoso": "Respetuoso",
+        "Regular": "Regular",
+        "Irrespetuoso": "Irrespetuoso",
+        "Degradante": "Degradante",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p87_s9_requisa_mismo_genero",
+      "page": 16,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        109,
+        595,
+        489,
+        224
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p88_s9_trato_general_visitantes",
+      "page": 16,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        114,
+        912,
+        491,
+        299
+      ],
+      "target_mappings": {
+        "Muy respetuoso": "Muy respetuoso",
+        "Respetuoso": "Respetuoso",
+        "Regular": "Regular",
+        "Irrespetuoso": "Irrespetuoso",
+        "Degradante": "Degradante",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p89_s9_visitas_nna",
+      "page": 16,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        109,
+        1266,
+        426,
+        198
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p90_s9_requisa_nna",
+      "page": 16,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        107,
+        1604,
+        382,
+        216
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p91_s9_presencia_adulto",
+      "page": 16,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        130,
+        1978,
+        356,
+        224
+      ],
+      "target_mappings": {
+        "Siempre": "Siempre",
+        "A veces": "A veces",
+        "Nunca": "Nunca",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p93_s9_impacto_requisa_nna",
+      "page": 17,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 9",
+      "roi": [
+        112,
+        561,
+        465,
+        260
+      ],
+      "target_mappings": {
+        "Totalmente": "Totalmente",
+        "Parcialmente": "Parcialmente",
+        "No dependía": "No dependía",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p94_s10_planificacion_salida",
+      "page": 17,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 10",
+      "roi": [
+        117,
+        1037,
+        478,
+        229
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "Parcialmente": "Parcialmente",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p95_s10_asistencia_pre_egreso",
+      "page": 17,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 10",
+      "roi": [
+        104,
+        1396,
+        390,
+        190
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p96_s10_lugar_vivir",
+      "page": 17,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 10",
+      "roi": [
+        109,
+        1661,
+        515,
+        213
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
+      "field_id": "p46_descripcion_dia",
+      "page": 9,
+      "type": "text",
+      "group": "SECCIÓN 5",
+      "roi": [
+        148,
+        1318,
+        1388,
+        283
+      ]
+    },
+    {
+      "field_id": "p48_detalle_organismo",
+      "page": 10,
+      "type": "text",
+      "group": "SECCIÓN 6",
+      "roi": [
+        160,
+        133,
+        1360,
+        302
+      ]
+    },
+    {
+      "field_id": "p71_agresion_detencion",
+      "page": 13,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 7",
+      "roi": [
+        140,
+        1019,
+        338,
+        169
+      ],
+      "target_mappings": {
+        "Si": "Si",
+        "No": "No",
+        "Ns/Nc": "Ns/Nc"
+      }
+    },
+    {
       "field_id": "p1_s1_edad",
       "page": 2,
       "type": "number",
       "group": "SECCIÓN 1",
       "roi": [
-        169,
-        255,
-        554,
-        314
+        159,
+        439,
+        541,
+        346
       ]
     },
     {
@@ -62,10 +1794,10 @@
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        166,
-        585,
-        598,
-        299
+        148,
+        769,
+        621,
+        361
       ],
       "target_mappings": {
         "Varón": "Varón",
@@ -76,15 +1808,35 @@
       }
     },
     {
+      "field_id": "p2a_s1_orientacion_sexual",
+      "page": 2,
+      "type": "single_choice_block",
+      "group": "SECCIÓN 1",
+      "roi": [
+        143,
+        1133,
+        720,
+        372
+      ],
+      "target_mappings": {
+        "Heterosexual": "Heterosexual",
+        "Homosexual": "Homosexual",
+        "Bisexual": "Bisexual",
+        "Asexual": "Asexual",
+        "Otra": "Otra",
+        "Prefiere no responder": "Prefiere no responder"
+      }
+    },
+    {
       "field_id": "p3_s1_nacionalidad",
       "page": 2,
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        166,
-        904,
-        613,
-        192
+        156,
+        1507,
+        593,
+        203
       ],
       "target_mappings": {
         "Argentina": "Argentina",
@@ -111,14 +1863,14 @@
     },
     {
       "field_id": "p5_s1_barrio_caba",
-      "page": 2,
+      "page": 3,
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        182,
-        1921,
-        1284,
-        257
+        170,
+        460,
+        1340,
+        430
       ]
     },
     {
@@ -131,30 +1883,6 @@
         1837,
         491,
         68
-      ]
-    },
-    {
-      "field_id": "p5_s1_partido_amba",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 1",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p6_s1_otra",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 1",
-      "roi": [
-        0,
-        0,
-        0,
-        0
       ]
     },
     {
@@ -184,10 +1912,10 @@
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        161,
-        787,
-        967,
-        356
+        185,
+        1520,
+        730,
+        325
       ],
       "target_mappings": {
         "Primario incompleto": "Primario incompleto",
@@ -204,10 +1932,10 @@
       "type": "single_choice_block",
       "group": "SECCIÓN 1",
       "roi": [
-        166,
-        1157,
-        985,
-        179
+        156,
+        1876,
+        411,
+        190
       ],
       "target_mappings": {
         "Si": "Si",
@@ -216,1682 +1944,15 @@
     },
     {
       "field_id": "p9_s1_detalle_estudio",
-      "page": 3,
+      "page": 4,
       "type": "text",
       "group": "SECCIÓN 1",
       "roi": [
-        166,
-        1344,
-        1312,
-        236
+        135,
+        221,
+        1385,
+        135
       ]
-    },
-    {
-      "field_id": "p10_s1_trabajaba",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 1",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No"
-      }
-    },
-    {
-      "field_id": "p11_s1_otro",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 1",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p11_s1_tipo_trabajo",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 1",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Formal tiempo completo": "Formal tiempo completo",
-        "Formal tiempo parcial": "Formal tiempo parcial",
-        "Informal tiempo completo": "Informal tiempo completo",
-        "Informal tiempo parcial": "Informal tiempo parcial",
-        "Changa": "Changa",
-        "Cuenta propia": "Cuenta propia",
-        "Otro": "Otro",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p12_s1_busqueda_trabajo",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 1",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p13_s2_situacion_conyugal",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Soltero/a": "Soltero/a",
-        "En pareja estable": "En pareja estable",
-        "Casado/a": "Casado/a",
-        "Viudo/a": "Viudo/a",
-        "Divorciado/a o separado/a": "Divorciado/a o separado/a",
-        "Otra": "Otra",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p14_s2_tiene_hijos",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No"
-      }
-    },
-    {
-      "field_id": "p15_s2_cant_hijos_menores",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Uno": "Uno",
-        "Dos": "Dos",
-        "Tres o más": "Tres o más"
-      }
-    },
-    {
-      "field_id": "p16_s2_bloque",
-      "page": 1,
-      "type": "multiple_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Con usted": "p16_s2_con_usted",
-        "Con otro padre/madre": "p16_s2_otro_padre",
-        "Con otro familiar 1": "p16_s2_otro_familiar_1",
-        "Con otro familiar 2": "p16_s2_otro_familiar_2",
-        "Solo/a": "p16_s2_solo",
-        "Sin vinculo": "p16_s2_sin_vinculo",
-        "Ns/Nc": "p16_s2_ns_nc"
-      }
-    },
-    {
-      "field_id": "p17_s2_bloque",
-      "page": 1,
-      "type": "multiple_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Con otro padre/madre": "p17_s2_otro_padre",
-        "Con otro familiar": "p17_s2_otro_familiar",
-        "Con institucion": "p17_s2_institucion",
-        "Solo/a": "p17_s2_solo",
-        "Sin vinculo": "p17_s2_sin_vinculo",
-        "Ns/Nc": "p17_s2_ns_nc"
-      }
-    },
-    {
-      "field_id": "p18_s2_hijo1_dep",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Totalmente": "Totalmente",
-        "Parcialmente": "Parcialmente",
-        "No dependía": "No dependía",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p18_s2_hijo2_dep",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Totalmente": "Totalmente",
-        "Parcialmente": "Parcialmente",
-        "No dependía": "No dependía",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p18_s2_hijo3_dep",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Totalmente": "Totalmente",
-        "Parcialmente": "Parcialmente",
-        "No dependía": "No dependía",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p18_s2_hijo4_dep",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Totalmente": "Totalmente",
-        "Parcialmente": "Parcialmente",
-        "No dependía": "No dependía",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p19_s2_otras_personas_a_cargo",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p20_s2_quienes_a_cargo",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p21_s2_contacto_familiar",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No"
-      }
-    },
-    {
-      "field_id": "p22_s2_quienes_contacto",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 2",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p23_s3_primera_detencion",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No"
-      }
-    },
-    {
-      "field_id": "p24_s3_edad_primer_contacto",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Menor de 18": "Menor de 18",
-        "18–24": "18–24",
-        "25–34": "25–34",
-        "35 o más": "35 o más"
-      }
-    },
-    {
-      "field_id": "p25_s3_cantidad_detenciones",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "4 o más": "4 o más"
-      }
-    },
-    {
-      "field_id": "p26_s3_bloque",
-      "page": 1,
-      "type": "multiple_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Comisaria": "p26_s3_comisaria",
-        "Alcaidia": "p26_s3_alcaidia",
-        "Unidad penitenciaria": "p26_s3_unidad_penitenciaria",
-        "Institucion de salud mental": "p26_s3_salud_mental",
-        "Centro juvenil": "p26_s3_juvenil"
-      }
-    },
-    {
-      "field_id": "p27_s3_condenas_previas",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p28_s3_anio_ultima_detencion",
-      "page": 1,
-      "type": "number",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p29_s3_duracion_ultima_detencion",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "0–6 meses": "0–6 meses",
-        "6–18 meses": "6–18 meses",
-        "18 meses–3 años": "18 meses–3 años",
-        "Más de 3 años": "Más de 3 años"
-      }
-    },
-    {
-      "field_id": "p30_s3_provincia_ultimo_est",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p30_s3_ultimo_establecimiento",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "En una cárcel Federal": "En una cárcel Federal",
-        "En una cárcel provincial": "En una cárcel provincial",
-        "Comisaría o alcaidía de CABA": "Comisaría o alcaidía de CABA"
-      }
-    },
-    {
-      "field_id": "p31_s3_ofreciemiento_ayuda",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p32_s3_ayuda_detalle",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Búsqueda laboral": "Búsqueda laboral",
-        "Ayuda habitacional": "Ayuda habitacional",
-        "Tratamiento de salud o de adicciones": "Tratamiento de salud o de adicciones",
-        "otra": "otra",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p32_s3_ayuda_detalle_otra",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p33_s3_personas_ofrecimiento",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Organismo estatal (patronato, programa ministerial o de justicia, etc)": "Organismo estatal (patronato, programa ministerial o de justicia, etc)",
-        "Sociedad civil (ong, iglesia, etc)": "Sociedad civil (ong, iglesia, etc)",
-        "otra": "otra"
-      }
-    },
-    {
-      "field_id": "p33_s3_personas_ofrecimientos_otra",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 3",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p34_s4_tiempo_detenido",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 4",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Menos de 1 mes": "Menos de 1 mes",
-        "Entre 1 y 6 meses": "Entre 1 y 6 meses",
-        "Más de 6 meses": "Más de 6 meses",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p35_s4_acceso_abogado",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 4",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Sí, abogado particular": "Sí, abogado particular",
-        "Sí, defensor público": "Sí, defensor público",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p36_s4_contacto_abogado",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 4",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p37_s4_situacion_legal_actual",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 4",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Procesado/a": "Procesado/a",
-        "Condenado/a": "Condenado/a",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p38_s4_duracion_resto_condena",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 4",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "0–3 meses": "0–3 meses",
-        "3–6 meses": "3–6 meses",
-        "6–12 meses": "6–12 meses",
-        "Más de 12 meses": "Más de 12 meses",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p39_s4_conocimiento_causa",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 4",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p40_s5_salida_celda",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 5",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p41_s5_apertura",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 5",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p41_s5_apertura_carga_horaria",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 5",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p42_s5_cierre",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 5",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p43_s5_acceso_actividades",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 5",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p44_s5_frecuencia_actividades",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 5",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p45_s5_bloque",
-      "page": 1,
-      "type": "multiple_choice_block",
-      "group": "SECCIÓN 5",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Actividad religiosa": "p45_s5_religiosa",
-        "Deporte en equipo": "p45_s5_deporte_equipo",
-        "Charlas": "p45_s5_charlas",
-        "Talleres": "p45_s5_talleres",
-        "Otras": "p45_s5_otras"
-      }
-    },
-    {
-      "field_id": "p46_s5_otra_actividad_texto",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 5",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p47_s6_bloque",
-      "page": 1,
-      "type": "multiple_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Comisaria": "p47_s6_comisaria",
-        "Alcaidia": "p47_s6_alcaidia",
-        "No": "p47_s6_no",
-        "Ns/Nc": "p47_s6_ns_nc"
-      }
-    },
-    {
-      "field_id": "p48_s6_tipo_organismo",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p48_s6_tipo_profesional",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Personal de salud de la policia interviniente": "Personal de salud de la policia interviniente",
-        "Personal de salud de otro organismo público.": "Personal de salud de otro organismo público.",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p49_s6_presencia_policial",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p50_s6_enfermedad",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p51_s6_enfermedad_detalle",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p52_s6_requiere_tratamiento",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p53_s6_tratamiento_actual",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Sí, en alcaidía": "Sí, en alcaidía",
-        "Sí, en un efector de salud externo": "Sí, en un efector de salud externo",
-        "No está garantizado": "No está garantizado",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p54_s6_necesidad_atencion_externa",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No"
-      }
-    },
-    {
-      "field_id": "p55_s6_gestion_turno",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Gestionado por el personal policial": "Gestionado por el personal policial",
-        "Gestionado por familiar o referente socio-afectivo": "Gestionado por familiar o referente socio-afectivo",
-        "Otro": "Otro"
-      }
-    },
-    {
-      "field_id": "p55_s6_gestion_turno_otro",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p56_s6_tiempo_turno",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "1–3 días": "1–3 días",
-        "3–7 días": "3–7 días",
-        "7–15 días": "7–15 días",
-        "1 mes": "1 mes",
-        "2 meses": "2 meses",
-        "3 meses o más": "3 meses o más"
-      }
-    },
-    {
-      "field_id": "p57_s6_acceso_turno",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p58_s6_tipo_efector",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Hospital público": "Hospital público",
-        "Centro de salud": "Centro de salud",
-        "Clínica privada": "Clínica privada",
-        "Otro": "Otro",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p59_s6_perdio_turno",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p60_s6_calidad_atencion",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Muy buena": "Muy buena",
-        "Buena": "Buena",
-        "Regular": "Regular",
-        "Mala": "Mala",
-        "Muy mala": "Muy mala",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p61_s6_tratamiento_salud_mental",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p62_s6_entrevista_psicologica",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 6",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p63_s7_seguridad_percibida",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 7",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Muy seguro/a": "Muy seguro/a",
-        "Seguro/a": "Seguro/a",
-        "Ni seguro ni inseguro": "Ni seguro ni inseguro",
-        "Poco seguro/a": "Poco seguro/a",
-        "Nada seguro/a": "Nada seguro/a",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p64_s7_robo",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 7",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p65_s7_ramenazas",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 7",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p66_s7_agresion_fisica",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 7",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p67_s7_cese_agresion",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 7",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Intervención de otros detenidos": "Intervención de otros detenidos",
-        "Intervención de personal policial": "Intervención de personal policial",
-        "Espontáneamente": "Espontáneamente",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p68_s7_cambio_alojamiento",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 7",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Sí, me cambiaron de alojamiento": "Sí, me cambiaron de alojamiento",
-        "Sí, cambiaron de alojamiento al agresor": "Sí, cambiaron de alojamiento al agresor",
-        "Nos cambiaron de alojamiento a ambos": "Nos cambiaron de alojamiento a ambos",
-        "No hubo cambio de alojamiento, siguió conviviendo con su agresor": "No hubo cambio de alojamiento, siguió conviviendo con su agresor",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p69_s7_respuesta_agentes",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 7",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p70_s7_frecuencia_requisa",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 7",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Todos los días": "Todos los días",
-        "Varias veces por semana": "Varias veces por semana",
-        "Una vez por semana": "Una vez por semana",
-        "Cada quince días": "Cada quince días",
-        "Una vez por mes": "Una vez por mes",
-        "Menos de una vez por mes": "Menos de una vez por mes",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p71_s7_recuentos_diarios",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 7",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "4": "4"
-      }
-    },
-    {
-      "field_id": "p72_s8_reglas_claras",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 8",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p73_s8_aplicacion_justa",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 8",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p74_s8_bloque",
-      "page": 1,
-      "type": "multiple_choice_block",
-      "group": "SECCIÓN 8",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Conflicto con internos": "p74_s8_conflicto_internos",
-        "Conflicto con policia": "p74_s8_conflicto_policia",
-        "Sin conflicto": "p74_s8_sin_conflicto",
-        "Ns/Nc": "p74_s8_ns_nc"
-      }
-    },
-    {
-      "field_id": "p75_s8_sanciones_informales",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 8",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p76_s8_violencia_fisica",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 8",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p77_s8_testigo_requisa",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 8",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p78_s8_requisa_dignidad",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 8",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p79_s9_llamadas",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Una vez por día": "Una vez por día",
-        "Día por medio": "Día por medio",
-        "Una vez por semana": "Una vez por semana",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p80_s9_duracion_llamadas",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "15 minutos": "15 minutos",
-        "30 minutos": "30 minutos",
-        "45 minutos": "45 minutos",
-        "1 hora": "1 hora",
-        "No tiene una duración pautada": "No tiene una duración pautada",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p81_s9_recibe_visitas",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p82_s9_frecuencia_visita",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Todas las semanas": "Todas las semanas",
-        "Cada 15 días": "Cada 15 días",
-        "1 vez por mes": "1 vez por mes",
-        "Cada tanto": "Cada tanto",
-        "Casi nunca": "Casi nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p83_s9_bloque",
-      "page": 1,
-      "type": "multiple_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "En pareja estable": "p83_s9_pareja",
-        "Hijos/as": "p83_s9_hijos",
-        "Madre": "p83_s9_madre",
-        "Padre": "p83_s9_padre",
-        "Hermanos/as": "p83_s9_hermanos",
-        "Amigos/as": "p83_s9_amigos",
-        "Vecinos/as": "p83_s9_vecinos",
-        "Otro": "p83_s9_otro"
-      }
-    },
-    {
-      "field_id": "p83_s9_otro_texto",
-      "page": 1,
-      "type": "text",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "field_id": "p84_s9_suspension_visitas",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p85_s9_requisa_visitantes",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p86_s9_trato_requisa_visitante",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Muy respetuoso": "Muy respetuoso",
-        "Respetuoso": "Respetuoso",
-        "Regular": "Regular",
-        "Irrespetuoso": "Irrespetuoso",
-        "Degradante": "Degradante",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p87_s9_requisa_mismo_genero",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p88_s9_trato_general_visitantes",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Muy respetuoso": "Muy respetuoso",
-        "Respetuoso": "Respetuoso",
-        "Regular": "Regular",
-        "Irrespetuoso": "Irrespetuoso",
-        "Degradante": "Degradante",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p89_s9_visitas_nna",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p90_s9_requisa_nna",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p91_s9_presencia_adulto",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p92_s8_genero_requisa_nna",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 8",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Siempre": "Siempre",
-        "A veces": "A veces",
-        "Nunca": "Nunca",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p93_s9_impacto_requisa_nna",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 9",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Totalmente": "Totalmente",
-        "Parcialmente": "Parcialmente",
-        "No dependía": "No dependía",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p94_s10_planificacion_salida",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 10",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "Parcialmente": "Parcialmente",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p95_s10_asistencia_pre_egreso",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 10",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
-    },
-    {
-      "field_id": "p96_s10_lugar_vivir",
-      "page": 1,
-      "type": "single_choice_block",
-      "group": "SECCIÓN 10",
-      "roi": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "target_mappings": {
-        "Si": "Si",
-        "No": "No",
-        "Ns/Nc": "Ns/Nc"
-      }
     }
   ]
 }
