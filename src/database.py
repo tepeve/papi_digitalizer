@@ -24,20 +24,18 @@ def persist_results(records: Iterable[dict], output_dir: str = "data/output") ->
 
     csv_path = os.path.join(output_dir, "sneep_backup.csv")
 
-    # Lógica de escritura del CSV (Append o Sobrescritura)
-    modo_escritura = 'a'  # 'a' para append (agregar)
+    modo_escritura = 'a'
     escribir_encabezado = False
 
     if not os.path.exists(csv_path):
         escribir_encabezado = True
-        modo_escritura = 'w' # 'w' para write (nuevo archivo)
+        modo_escritura = 'w'
     else:
-        # Verificar si las columnas coinciden con el archivo existente
-        with open(csv_path, "r", encoding="utf-8") as handle:
+        with open(csv_path, "r", encoding="utf-8-sig") as handle:
             primer_linea = handle.readline().strip()
         
         if primer_linea:
-            columnas_existentes = primer_linea.split(",")
+            columnas_existentes = primer_linea.split(";")
             if set(columnas_existentes) != set(df.columns):
                 print(
                     "⚠️ Esquema de CSV no coincide con las columnas actuales. "
@@ -46,8 +44,6 @@ def persist_results(records: Iterable[dict], output_dir: str = "data/output") ->
                 modo_escritura = 'w'
                 escribir_encabezado = True
 
-    # Guardar en CSV
-    df.to_csv(csv_path, mode=modo_escritura, header=escribir_encabezado, index=False)
-
-    print(f"✅ Persistencia OK: {len(df)} registros -> {csv_path}")
+    df.to_csv(csv_path, mode=modo_escritura, header=escribir_encabezado, index=False, encoding='utf-8-sig', sep=';')
+    
     return df

@@ -1,22 +1,15 @@
+import re
 from enum import Enum
-from datetime import date
+from datetime import date, datetime
 from typing import Optional, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
-# ==========================================
-# HELPER PARA METADATOS DEL CONTRATO
-# ==========================================
 def meta(tipo_pregunta: str, nivel_medicion: str, data_type: str) -> dict:
-    """Inyecta la tipificación estadística y de estructura en el esquema JSON."""
     return {
         "tipo_pregunta": tipo_pregunta,
         "nivel_medicion": nivel_medicion,
         "data_type": data_type
     }
-
-# ==========================================
-# ESCALAS DE RESPUESTA REUTILIZABLES (ENUMS DESCODIFICADOS)
-# ==========================================
 
 class SiNo(str, Enum):
     SI = "Si"
@@ -277,25 +270,18 @@ class FrecuenciaVisita(str, Enum):
     CASI_NUNCA = "Casi nunca"
     NS_NC = "Ns/Nc"
 
-
-# ==========================================
-# CONTRATO DE DATOS: DIAGNÓSTICO INTEGRAL
-# ==========================================
-
 class DiagnosticoIntegral(BaseModel):
-    # --- DATOS DE LA ENCUESTA ---
-    id_encuesta: int = Field(..., json_schema_extra=meta("Numérica", "Razón", "int"))
-    Fecha_encuesta: date = Field(..., json_schema_extra=meta("Fecha", "Intervalo", "date"))
+    id_encuesta: Optional[int] = Field(None, json_schema_extra=meta("Numérica", "Razón", "int"))
+    Fecha_encuesta: Optional[date] = Field(None, json_schema_extra=meta("Fecha", "Intervalo", "date"))
     nombre_apellido_encuestador: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Nominal", "string"))
 
-    # --- SECCIÓN 1: DATOS DEMOGRÁFICOS ---
-    p1_s1_edad: Optional[int] = Field(None, json_schema_extra=meta("Numérica", "Razón", "int"))
+    p1_s1_edad: Optional[str] = Field(None, json_schema_extra=meta("Categorizada", "Ordinal", "string"))
     p2_s1_genero: Optional[IdentidadGenero] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p2a_s1_orientacion_sexual: Optional[OrientacionSexual] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p3_s1_nacionalidad: Optional[Nacionalidad] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p4_s1_residencia_previa: Optional[ResidenciaPrevia] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p5_s1_otra: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
-    p5_s1_partido_amba: Optional[str] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string")) # Se mantiene str abierto para evitar enums de 40+ elementos en extracción OCR directa, pero validados lógicamente.
+    p5_s1_partido_amba: Optional[str] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string")) 
     p5_s1_partido_amba_otro: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p5_s1_barrio_caba: Optional[str] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p5_s1_barrio_caba_otro: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
@@ -309,12 +295,10 @@ class DiagnosticoIntegral(BaseModel):
     p11_s1_otro: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p12_s1_busqueda_trabajo: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
 
-    # --- SECCIÓN 2: SITUACIÓN FAMILIAR Y REDES AFECTIVAS ---
     p13_s2_situacion_conyugal: Optional[SituacionConyugal] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p14_s2_tiene_hijos: Optional[SiNo] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p15_s2_cant_hijos_menores: Optional[CantidadHijos] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     
-    # Opciones Múltiples de P16 y P17
     p16_s2_con_usted: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
     p16_s2_otro_padre: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
     p16_s2_otro_familiar_1: Optional[SiNo] = Field(None, json_schema_extra=meta("Opción múltiple", "Nominal", "string"))
@@ -339,7 +323,6 @@ class DiagnosticoIntegral(BaseModel):
     p21_s2_contacto_familiar: Optional[SiNo] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p22_s2_quienes_contacto: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
 
-    # --- SECCIÓN 3: TRAYECTORIA PENAL ANTERIOR ---
     p23_s3_primera_detencion: Optional[SiNo] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p24_s3_edad_primer_contacto: Optional[EdadPrimerContacto] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p25_s3_cantidad_detenciones: Optional[EscalaNumericaAgrupada] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
@@ -361,7 +344,6 @@ class DiagnosticoIntegral(BaseModel):
     p33_s3_personas_ofrecimiento: Optional[PersonasOfrecimiento] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p33_s3_personas_ofrecimientos_otra: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
 
-    # --- SECCIÓN 4: DETENCIÓN POLICIAL Y SIT. JUDICIAL ---
     p34_s4_tiempo_detenido: Optional[TiempoDetenidoActual] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p35_s4_acceso_abogado: Optional[AccesoAbogado] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p36_s4_contacto_abogado: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
@@ -369,7 +351,6 @@ class DiagnosticoIntegral(BaseModel):
     p38_s4_duracion_resto_condena: Optional[DuracionRestoCondena] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p39_s4_conocimiento_causa: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
 
-    # --- SECCIÓN 5: USO DEL TIEMPO ---
     p40_s5_salida_celda: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p41_s5_apertura: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p42_s5_cierre: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
@@ -383,8 +364,6 @@ class DiagnosticoIntegral(BaseModel):
     p45_s5_otra_actividad_texto: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
     p46_descripcion_dia: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
 
-
-    # --- SECCIÓN 6: ACCESO A LA SALUD INTEGRAL ---
     p47_s6_comisaria: Optional[SiNo] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p48_s6_tipo_profesional: Optional[TipoProfesionalSalud] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p48_detalle_organismo: Optional[str] = Field(None, json_schema_extra=meta("Abierta", "Texto Libre", "string"))
@@ -404,7 +383,6 @@ class DiagnosticoIntegral(BaseModel):
     p61_s6_tratamiento_salud_mental: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p62_s6_entrevista_psicologica: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
 
-    # --- SECCIÓN 7: SEGURIDAD INTERNA ---
     p63_s7_seguridad_percibida: Optional[SeguridadPercibida] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p64_s7_robo: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p65_s7_ramenazas: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
@@ -419,13 +397,11 @@ class DiagnosticoIntegral(BaseModel):
     p73_s7_frecuencia_requisa: Optional[FrecuenciaRequisa] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p74_s7_recuentos_diarios: Optional[EscalaNumericaCorta] = Field(None, json_schema_extra=meta("Cerrada - única", "Razón", "string"))
 
-    # --- SECCIÓN 8: DINÁMICAS DE CONVIVENCIA INSTITUCIONAL ---
     p75_s8_reglas_claras: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p76_s8_respuesta_reclamos: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p77_s8_testigo_requisa: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p78_s8_requisa_dignidad: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     
-    # --- SECCIÓN 9: VINCULACIÓN FAMILIAR Y SOCIOAFECTIVA ---
     p79_s9_llamadas: Optional[FrecuenciaLlamadas] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p80_s9_duracion_llamadas: Optional[DuracionLlamadas] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p81_s9_recibe_visitas: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
@@ -450,7 +426,131 @@ class DiagnosticoIntegral(BaseModel):
     p92_s8_genero_requisa_nna: Optional[FrecuenciaSemejante] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
     p93_s9_impacto_requisa_nna: Optional[DependenciaEconomica] = Field(None, json_schema_extra=meta("Cerrada - única", "Ordinal", "string"))
 
-    # --- SECCIÓN 10: ACOMPAÑAMIENTO POSTPENITENCIARIO ---
     p94_s10_planificacion_salida: Optional[SiParcialNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p95_s10_asistencia_pre_egreso: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
     p96_s10_lugar_vivir: Optional[SiNoNsNc] = Field(None, json_schema_extra=meta("Cerrada - única", "Nominal", "string"))
+
+    @model_validator(mode="before")
+    @classmethod
+    def pre_process_llm_outputs(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        for k, v in list(data.items()):
+            if isinstance(v, str):
+                v_clean = v.strip()
+                if v_clean in ["Ns / Nc", "Ns /Nc", "(Porc)", "Porc", "(Parc)", "Ns/nc"]:
+                    v_clean = "Ns/Nc"
+                data[k] = v_clean
+
+        if "Fecha_encuesta" in data and isinstance(data["Fecha_encuesta"], str):
+            val_fecha = data["Fecha_encuesta"].replace("-", "/")
+            if re.match(r"^\d{1,2}/\d{1,2}$", val_fecha):
+                partes = val_fecha.split('/')
+                data["Fecha_encuesta"] = f"2026-{partes[1].zfill(2)}-{partes[0].zfill(2)}"
+            elif re.match(r"^\d{1,2}/\d{1,2}/\d{2,4}$", val_fecha):
+                try:
+                    partes = val_fecha.split('/')
+                    anio = partes[2]
+                    if len(anio) == 2:
+                        anio = f"20{anio}"
+                    data["Fecha_encuesta"] = f"{anio}-{partes[1].zfill(2)}-{partes[0].zfill(2)}"
+                except ValueError:
+                    data.pop("Fecha_encuesta", None)
+            else:
+                data.pop("Fecha_encuesta", None)
+
+        if "p28_s3_anio_ultima_detencion" in data and isinstance(data["p28_s3_anio_ultima_detencion"], str):
+            match = re.search(r'\b(19\d{2}|20\d{2})\b', data["p28_s3_anio_ultima_detencion"])
+            if match:
+                data["p28_s3_anio_ultima_detencion"] = int(match.group(1))
+            else:
+                data.pop("p28_s3_anio_ultima_detencion", None)
+
+        mapeos_heuristicos = {
+            "p2_s1_genero": {"Varón cis": "Varón_Cis", "Varón": "Varón_Cis", "Mujer cis": "Mujer_Cis", "Mujer": "Mujer_Cis"},
+            "p3_s1_nacionalidad": {"(Paraguay)": "Otra", "Paraguay": "Otra"},
+            "p7_s1_nivel_educativo": {
+                "Terciario–universitario completo": "Terciario/universitario completo",
+                "Terciario-universitario completo": "Terciario/universitario completo",
+                "Terciario–universitario incompleto": "Terciario/universitario incompleto",
+                "Terciario-universitario incompleto": "Terciario/universitario incompleto"
+            },
+            "p13_s2_situacion_conyugal": {"En pareja": "En pareja estable"},
+            "p15_s2_cant_hijos_menores": {"3 o más": "Tres o más", "3 o mas": "Tres o más", "1": "Uno", "2": "Dos", "3 ó más": "Tres o más"},
+            "p18_s2_hijo1_dep": {"No dependían": "No dependía"},
+            "p18_s2_hijo2_dep": {"No dependían": "No dependía"},
+            "p18_s2_hijo3_dep": {"No dependían": "No dependía"},
+            "p18_s2_hijo4_dep": {"No dependían": "No dependía"},
+            "p29_s3_duracion_ultima_detencion": {
+                "- 6 meses": "0–6 meses", "0 - 6 meses": "0–6 meses", "Entre 1 y 6 meses": "0–6 meses", "Menos de 1 mes": "0–6 meses",
+                "6 – 18 meses": "6–18 meses", "18 meses – 3 años": "18 meses–3 años", "+ de 3 años": "Más de 3 años"
+            },
+            "p30_s3_ultimo_establecimiento": {"Comisaría o alcaldía de CABA": "Comisaría o alcaidía de CABA"},
+            "p37_s4_situacion_legal_actual": {"Condenada": "Condenado/a", "Procesada": "Procesado/a"},
+            "p38_s4_duracion_resto_condena": {"0-3 meses": "0–3 meses"},
+            "p52_s6_requiere_tratamiento": {"No está garantizado": "Ns/Nc"},
+            "p54_s6_necesidad_atencion_externa": {"Sí, en la alcaidía": "Si", "Sí": "Si"},
+            "p55_s6_gestion_turno": {"Gestionado por abogado/ a defensor/ a": "Otro"},
+            "p56_s6_tiempo_turno": {"1 a 3 días": "1–3 días", "entre 7 y 15 días": "7–15 días", "(3 semanas)": "1 mes", "3 semanas": "1 mes", "meses": None},
+            "p61_s6_tratamiento_salud_mental": {"(Porc)": "Ns/Nc", "Porc": "Ns/Nc", "(Parc)": "Ns/Nc"},
+            "p63_s7_seguridad_percibida": {"Ni seguro/a ni inseguro/a": "Ni seguro ni inseguro"},
+            "p66_s7_agresiones_detenidos": {"Intervención de personal policial": "Si", "Espontáneamente": "Si", "Intervención de otros detenidos": "Si"},
+            "p68_s7_cambio_alojamiento": {
+                "No hubo cambios de alojamiento": "No hubo cambio de alojamiento, siguió conviviendo con su agresor",
+                "Si, cambiaron de alojamiento al agredido": "Sí, me cambiaron de alojamiento"
+            },
+            "p73_s7_frecuencia_requisa": {"Nunca": "Menos de una vez por mes"},
+            "p74_s7_recuentos_diarios": {"0": None},
+            "p79_s9_llamadas": {"Sí, una vez por semana": "Una vez por semana", "Sí, una vez por día": "Una vez por día"},
+            "p80_s9_duracion_llamadas": {"(10 min.)": "15 minutos", "10 min.": "15 minutos", "10 min": "15 minutos"},
+            "p84_s9_suspension_visitas": {"Siempre": "Si"}
+        }
+
+        for campo, mapeo in mapeos_heuristicos.items():
+            if campo in data and isinstance(data[campo], str):
+                val_limpio = data[campo]
+                if val_limpio in mapeo:
+                    data[campo] = mapeo[val_limpio]
+
+        for k, v in list(data.items()):
+            if isinstance(v, str):
+                if k != "Fecha_encuesta":
+                    v_normalizado = re.sub(r'\s*[-–]\s*', '–', v)
+                else:
+                    v_normalizado = v
+
+                if v_normalizado == "Ns/Nc" and k in [
+                    "p15_s2_cant_hijos_menores", "p24_s3_edad_primer_contacto", 
+                    "p25_s3_cantidad_detenciones", "p29_s3_duracion_ultima_detencion", 
+                    "p30_s3_ultimo_establecimiento", "p33_s3_personas_ofrecimiento",
+                    "p56_s6_tiempo_turno", "p74_s7_recuentos_diarios"
+                ]:
+                    v_normalizado = None
+                    
+                if v_normalizado is not None:
+                    v_lower = v_normalizado.lower()
+                    if k == "p11_s1_tipo_trabajo" and "informal" in v_lower and "parcial" in v_lower:
+                        v_normalizado = "Informal tiempo parcial"
+                    elif k == "p11_s1_tipo_trabajo" and "informal" in v_lower and "completo" in v_lower:
+                        v_normalizado = "Informal tiempo completo"
+                    elif k == "p58_s6_tipo_efector" and "público" in v_lower and "hospital" in v_lower:
+                        v_normalizado = "Hospital público"
+                    elif k == "p68_s7_cambio_alojamiento" and "no hubo" in v_lower:
+                        v_normalizado = "No hubo cambio de alojamiento, siguió conviviendo con su agresor"
+                    elif k == "p79_s9_llamadas" and "una vez por día" in v_lower:
+                        v_normalizado = "Una vez por día"
+                    elif k == "p82_s9_frecuencia_visita" and "menos de una vez al mes" in v_lower:
+                        v_normalizado = "Casi nunca"
+                    elif k == "p84_s9_suspension_visitas" and "nunca" in v_lower:
+                        v_normalizado = "No"
+                    elif k == "p93_s9_impacto_requisa_nna" and v_lower == "no":
+                        v_normalizado = "No dependía"
+                    elif k == "p49_s6_presencia_policial" and "oficia" in v_lower:
+                        v_normalizado = "Ns/Nc"
+
+                data[k] = v_normalizado
+
+        data = {k: v for k, v in data.items() if v is not None}
+
+        return data
